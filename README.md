@@ -1,7 +1,7 @@
 # Pasos para crear el proyecto
 - Crear repositorio en Github.
 - Crear carpeta local ConsultaAlumnosClean.
-- En la consola de comando, dentro de la carpeta ConsultaAlumnosClear
+- En la consola de comandos, dentro de la carpeta ConsultaAlumnosClear
 ```
 git init
 git add README.md
@@ -24,7 +24,18 @@ dotnet add Infrastructure/Infrastructure.csproj reference Application/Applicatio
 dotnet add Web/Web.csproj reference Application/Application.csproj
 dotnet add Web/Web.csproj reference Infrastructure/Infrastructure.csproj
 rm -r **/Class1.cs
+de ..
+mkdir docs
 ```
+
+# Estructura de carpetas y contenido
+- Carpeta src 
+    - Código fuente de la aplicación.
+- Carpeta docs 
+    - Minuta de relevamiento en formato [.md](https://commonmark.org/)
+    - Modelo de dominio en formato [.drawio](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio)
+    - Carpeta images
+        - Repositorio de imágenes para utilizar en los documentos.
 
 
 # Arquitectura del proyecto
