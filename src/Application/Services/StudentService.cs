@@ -3,6 +3,7 @@
 using AutoMapper;
 using ConsultaAlumnosClean.Application.Interfaces;
 using ConsultaAlumnosClean.Application.Models;
+using ConsultaAlumnosClean.Domain.Interfaces;
 
 namespace ConsultaAlumnosClean.Application.Services
 {

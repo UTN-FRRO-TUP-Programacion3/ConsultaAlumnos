@@ -111,4 +111,3 @@ public class ApplicationDbContext : DbContext
         base.OnModelCreating(modelBuilder);
     }
 }
-}
