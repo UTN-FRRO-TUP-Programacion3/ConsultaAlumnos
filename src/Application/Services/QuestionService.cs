@@ -32,7 +32,7 @@ namespace Application.Services
 
         public QuestionDto CreateQuestion(QuestionCreateRequest newQuestionDto, int userId)
         {
-            var newQuestion = _mapper.Map<ConsultaAlumnosClean.Domain.Entities.Question>(newQuestionDto);
+            var newQuestion = _mapper.Map<Question>(newQuestionDto);
 
             newQuestion.CreatorStudentId = userId;
 
