@@ -13,7 +13,7 @@
 
 Con Clean Architecture, las capas Domain y Application son el centro del diseño. Esto se conoce como el Core del sistema.
 
-La capa Domain contiene la lógica empresarial y los tipos, y la capa Application contiene la lógica de negocio y los tipos. La diferencia es que la lógica empresarial se puede compartir entre varios sistemas, mientras que la lógica de negocio se usa generalmente solo dentro del sistema actual.
+La capa Domain contiene la lógica empresarial y la capa Application contiene la lógica de negocio. La diferencia es que la lógica empresarial se puede compartir entre varios sistemas, mientras que la lógica de negocio se usa generalmente solo dentro del sistema actual.
 
 El Core no debe depender del acceso a datos ni de otras cuestiones de arquitectura, entonces esas dependencias se invierten. Esto se alcanza agregando interfaces o abstracciones dentro del Core, que son implementadas en las capas exteriores. Por ejemplo, si se quiere implementar el patrón Repositorio, esto se hace agregando la interface en el Core y haciendo la implementación en la capa Infrastructure.
 
