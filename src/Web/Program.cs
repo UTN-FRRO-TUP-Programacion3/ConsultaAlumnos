@@ -1,4 +1,3 @@
-using Application.Services;
 using ConsultaAlumnosClean.Application.Interfaces;
 using ConsultaAlumnosClean.Application.Services;
 using ConsultaAlumnosClean.Domain.Interfaces;
@@ -74,7 +73,7 @@ builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ICustomAuthenticationService, AutenticacionService>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
-//builder.Services.AddScoped<IProfessorService, ProfessorService>();
+builder.Services.AddScoped<IProfessorService, ProfessorService>();
 //builder.Services.AddScoped<IResponseService, ResponseService>();
 
 #if DEBUG
