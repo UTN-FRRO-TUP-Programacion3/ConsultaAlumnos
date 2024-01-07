@@ -63,7 +63,13 @@ public class QuestionController : ControllerBase
     [HttpPut("{questionId}/changestatus")]
     public ActionResult<QuestionDto> ChangeQuestionStatus(int questionId, QuestionStatusUpdateRequest newStatus)
     {
-        _questionService.ChangeQuestionStatus(questionId, newStatus.Status);
+        var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        if (!int.TryParse(userIdClaim, out int userId))
+        {
+            return Unauthorized();
+        }
+
+        _questionService.ChangeQuestionStatus(questionId, newStatus.Status,userId);
 
         return NoContent();
     }

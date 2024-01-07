@@ -59,21 +59,13 @@ public class QuestionService : IQuestionService
         return _questionRepository.IsQuestionIdValid(questionId);
     }
 
-    public void ChangeQuestionStatus(int questionId, QuestionState newStatus)
+    public void ChangeQuestionStatus(int questionId, QuestionState newStatus,int userId)
     {
-        var question = _questionRepository.GetByIdAsync(questionId).Result;
-        question.LastModificationDate = DateTime.Now;
-        question.QuestionState = newStatus;
-        if (_questionRepository.SaveChangesAsync().Result > 0)
-            NotifyStatusChange(question);
-    }
+        var question = _questionRepository.GetByIdAsync(questionId).Result
+            ?? throw new Exception("Question not found");
 
-    public void ChangeQuestionStatus(int questionId,string userType)
-    {
-       
-        var question = _questionRepository.GetByIdAsync(questionId).Result;
-        question.QuestionState = userType == "Alumno" ? QuestionState.WaitingProfessorAnwser : QuestionState.WaitingStudentAnwser;
-        question.LastModificationDate = DateTime.Now;
+        question.ChangeQuestionStatus(newStatus, userId);
+
         if (_questionRepository.SaveChangesAsync().Result > 0)
             NotifyStatusChange(question);
     }

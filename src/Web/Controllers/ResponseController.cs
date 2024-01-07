@@ -23,7 +23,7 @@ public class ResponseController : ControllerBase
     }
 
     [HttpGet("{responseId}", Name = "GetResponse")]
-    public ActionResult<ResponseDto> GetQuestion(int responseId)
+    public ActionResult<ResponseDto> GetResponse(int responseId)
     {
         var response = _responseService.GetResponse(responseId);
 
@@ -34,7 +34,7 @@ public class ResponseController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult CreateResponse(int questionId, ResponseCreateRequest newResponseForCreation)
+    public IActionResult CreateResponse(int questionId, ResponseCreateRequest responseCreateRequest)
     {
         if (!_questionService.IsQuestionIdValid(questionId))
             return NotFound($"Question Id not found: {questionId.ToString()}");
@@ -42,7 +42,7 @@ public class ResponseController : ControllerBase
         var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
         var userId = int.Parse(userIdClaim);
 
-        var newResponse = _responseService.CreateResponse(newResponseForCreation, questionId, userId);
+        var newResponse = _responseService.CreateResponse(responseCreateRequest, questionId, userId);
 
         return CreatedAtRoute(
             "GetResponse",
