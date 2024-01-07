@@ -4,14 +4,13 @@ using ConsultaAlumnosClean.Application.Models.Requests;
 using ConsultaAlumnosClean.Domain.Entities;
 
 
-namespace ConsultaAlumnos.API.Profiles
+namespace ConsultaAlumnosClean.Application.Profiles;
+
+public class QuestionProfile : Profile
 {
-    public class QuestionProfile : Profile
+    public QuestionProfile()
     {
-        public QuestionProfile()
-        {
-            CreateMap<QuestionCreateRequest, Question>();
-            CreateMap<Question, QuestionDto>();
-        }
+        CreateMap<QuestionCreateRequest, Question>();
+        CreateMap<Question, QuestionDto>();
     }
 }

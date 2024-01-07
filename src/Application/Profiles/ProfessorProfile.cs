@@ -2,13 +2,12 @@
 using ConsultaAlumnosClean.Application.Models;
 using ConsultaAlumnosClean.Domain.Entities;
 
-namespace ConsultaAlumnos.API.Profiles
+namespace ConsultaAlumnosClean.Application.Profiles;
+
+public class ProfessorProfile : Profile
 {
-    public class ProfessorProfile : Profile
+    public ProfessorProfile()
     {
-        public ProfessorProfile()
-        {
-            CreateMap<Professor, ProfessorDto>();
-        }
+        CreateMap<Professor, ProfessorDto>();
     }
 }

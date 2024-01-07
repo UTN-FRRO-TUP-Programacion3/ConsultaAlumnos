@@ -26,7 +26,7 @@ public class StudentService : IStudentService
 
     public StudentDto GetStudentById(int id)
     {
-        var student = _userRepository.GetStudentById(id);
+        var student = _userRepository.GetByIdAsync(id).Result;
 
         return _mapper.Map<StudentDto>(student);
     }

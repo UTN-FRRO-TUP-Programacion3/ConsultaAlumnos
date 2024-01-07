@@ -4,9 +4,7 @@ using ConsultaAlumnosClean.Domain.Entities;
 
 namespace ConsultaAlumnosClean.Domain.Interfaces;
 
-public interface IUserRepository : IRepository
+public interface IUserRepository : IRepositoryBase<User>
 {
-    User? GetUserById(int userId);
-
     User? GetUserByUserName(string userName);
 }

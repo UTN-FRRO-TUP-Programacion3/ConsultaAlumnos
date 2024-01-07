@@ -36,11 +36,11 @@ public class QuestionService : IQuestionService
 
         newQuestion.CreatorStudentId = userId;
 
-        var student = _userRepository.GetUserById(userId);
-        var professor = _userRepository.GetUserById(newQuestionDto.ProfessorId);
+        var student = _userRepository.GetByIdAsync(userId).Result;
+        var professor = _userRepository.GetByIdAsync(newQuestionDto.ProfessorId).Result;
 
-        _questionRepository.AddQuestion(newQuestion);
-        if (_questionRepository.SaveChanges())
+        _ = _questionRepository.AddAsync(newQuestion).Result;
+        if (_questionRepository.SaveChangesAsync().Result > 0)
             _mailService.Send("Se creó una nueva consulta",
                 $"Usted tiene una nueva consulta asignada por parte del alumno: {student.Name} {student.LastName} ",
                 professor.Email);
@@ -50,7 +50,7 @@ public class QuestionService : IQuestionService
 
     public QuestionDto? GetQuestion(int questionId)
     {
-        var consulta = _questionRepository.GetQuestion(questionId);
+        var consulta = _questionRepository.GetByIdAsync(questionId).Result;
         return _mapper.Map<QuestionDto?>(consulta);
     }
 
@@ -61,20 +61,20 @@ public class QuestionService : IQuestionService
 
     public void ChangeQuestionStatus(int questionId, QuestionState newStatus)
     {
-        var question = _questionRepository.GetQuestion(questionId);
+        var question = _questionRepository.GetByIdAsync(questionId).Result;
         question.LastModificationDate = DateTime.Now;
         question.QuestionState = newStatus;
-        if (_questionRepository.SaveChanges())
+        if (_questionRepository.SaveChangesAsync().Result > 0)
             NotifyStatusChange(question);
     }
 
     public void ChangeQuestionStatus(int questionId,string userType)
     {
        
-        var question = _questionRepository.GetQuestion(questionId);
+        var question = _questionRepository.GetByIdAsync(questionId).Result;
         question.QuestionState = userType == "Alumno" ? QuestionState.WaitingProfessorAnwser : QuestionState.WaitingStudentAnwser;
         question.LastModificationDate = DateTime.Now;
-        if (_questionRepository.SaveChanges())
+        if (_questionRepository.SaveChangesAsync().Result > 0)
             NotifyStatusChange(question);
     }
 

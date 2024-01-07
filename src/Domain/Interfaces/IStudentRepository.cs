@@ -4,8 +4,7 @@ using ConsultaAlumnosClean.Domain.Entities;
 
 namespace ConsultaAlumnosClean.Domain.Interfaces;
 
-public interface IStudentRepository
+public interface IStudentRepository : IRepositoryBase<Student>
 {
-    Student? GetStudentById(int userId);
     ICollection<Subject> GetStudentSubjects(int studentId);
 }

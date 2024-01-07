@@ -38,6 +38,7 @@ public class ResponseController : ControllerBase
     {
         if (!_questionService.IsQuestionIdValid(questionId))
             return NotFound($"Question Id not found: {questionId.ToString()}");
+
         var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
         var userId = int.Parse(userIdClaim);
 

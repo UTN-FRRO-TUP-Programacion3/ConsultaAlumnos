@@ -4,16 +4,10 @@ using ConsultaAlumnosClean.Domain.Interfaces;
 
 namespace ConsultaAlumnosClean.Infrastructure.Data;
 
-public class UserRepository : Repository, IUserRepository
+public class UserRepository : EfRepository<User>, IUserRepository
 {
     public UserRepository(ApplicationDbContext context) : base(context)
     {
-    }
-
-
-    public User? GetUserById(int userId)
-    {
-        return _context.Users.Find(userId);
     }
 
     public User? GetUserByUserName(string userName)

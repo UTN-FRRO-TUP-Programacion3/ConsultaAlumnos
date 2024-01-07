@@ -3,10 +3,13 @@ using ConsultaAlumnosClean.Domain.Entities;
 
 namespace ConsultaAlumnosClean.Domain.Interfaces;
 
-public interface IQuestionRepository : IRepository
+public interface IQuestionRepository : IRepositoryBase<Question>
 {
-    void AddQuestion(Question newQuestion);
+   
     IOrderedQueryable<Question> GetPendingQuestions(int userId, bool withResponses);
-    Question? GetQuestion(int questionId);
+    
     bool IsQuestionIdValid(int questionId);
+
+    Task<Question?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
+
 }

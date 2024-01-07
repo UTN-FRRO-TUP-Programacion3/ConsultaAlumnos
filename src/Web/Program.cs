@@ -1,5 +1,6 @@
 using ConsultaAlumnosClean.Application.Interfaces;
 using ConsultaAlumnosClean.Application.Services;
+using ConsultaAlumnosClean.Domain.Entities;
 using ConsultaAlumnosClean.Domain.Interfaces;
 using ConsultaAlumnosClean.Infrastructure.Data;
 using ConsultaAlumnosClean.Infrastructure.Services;
@@ -64,9 +65,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 #region Repositories
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-//builder.Services.AddScoped<IProfessorRepository, ProfessorRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
-//builder.Services.AddScoped<IResponseRepository, ResponseRepository>();
+builder.Services.AddScoped<IRepositoryBase<Response>, EfRepository<Response>>();
 #endregion
 
 #region Services
@@ -74,7 +74,7 @@ builder.Services.AddScoped<ICustomAuthenticationService, AutenticacionService>()
 builder.Services.AddScoped<IQuestionService, QuestionService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IProfessorService, ProfessorService>();
-//builder.Services.AddScoped<IResponseService, ResponseService>();
+builder.Services.AddScoped<IResponseService, ResponseService>();
 
 #if DEBUG
 builder.Services.AddTransient<IMailService, LocalMailService>();

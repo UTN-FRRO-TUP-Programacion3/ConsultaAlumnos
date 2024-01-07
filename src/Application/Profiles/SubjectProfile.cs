@@ -2,13 +2,12 @@
 using ConsultaAlumnosClean.Application.Models;
 
 
-namespace ConsultaAlumnos.API.Profiles
+namespace ConsultaAlumnosClean.Application.Profiles;
+
+public class SubjectProfile : Profile
 {
-    public class SubjectProfile : Profile
+    public SubjectProfile()
     {
-        public SubjectProfile()
-        {
-            CreateMap<ConsultaAlumnosClean.Domain.Entities.Subject, SubjectDto>();
-        }
+        CreateMap<ConsultaAlumnosClean.Domain.Entities.Subject, SubjectDto>();
     }
 }
