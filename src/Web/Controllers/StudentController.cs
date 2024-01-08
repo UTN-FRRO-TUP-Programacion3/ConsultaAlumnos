@@ -22,11 +22,11 @@ public class StudentController : ControllerBase
     [HttpGet("subjects")]
     public ActionResult<ICollection<SubjectDto>> GetMaterias()
     {
-        var user = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
         var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
         if (userRole != "alumno")
             return Forbid();
 
-        return _studentService.GetSubjectsByStudent(int.Parse(user)).ToList();
+        return _studentService.GetSubjectsByStudent(userId).ToList();
     }
 }

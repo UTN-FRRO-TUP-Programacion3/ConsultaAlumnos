@@ -36,11 +36,8 @@ public class ResponseController : ControllerBase
     [HttpPost]
     public IActionResult CreateResponse(int questionId, ResponseCreateRequest responseCreateRequest)
     {
-        if (!_questionService.IsQuestionIdValid(questionId))
-            return NotFound($"Question Id not found: {questionId.ToString()}");
-
-        var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-        var userId = int.Parse(userIdClaim);
+      
+        int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
 
         var newResponse = _responseService.CreateResponse(responseCreateRequest, questionId, userId);
 

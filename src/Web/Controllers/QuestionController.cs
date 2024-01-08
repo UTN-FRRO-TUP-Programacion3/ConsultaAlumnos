@@ -23,31 +23,23 @@ public class QuestionController : ControllerBase
     [HttpGet("{questionId}", Name = "GetQuestion")]
     public ActionResult<QuestionDto> GetQuestion(int questionId)
     {
-        var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-        if (!int.TryParse(userIdClaim, out int userId))
-        {
-            return Unauthorized();
-        }
+        int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
 
-        var qustion = _questionService.GetQuestion(questionId);
+        var question = _questionService.GetQuestion(questionId);
 
-        if (qustion is null)
+        if (question is null)
             return NotFound();
 
-        if (qustion.CreatorStudentId != userId)
+        if (question.CreatorStudentId  != userId && question.ProfessorId != userId)
             return Forbid();
 
-        return Ok(qustion);
+        return Ok(question);
     }
 
     [HttpPost]
     public ActionResult<QuestionDto> CreateQuestion(QuestionCreateRequest newQuestion)
     {
-        var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-        if (!int.TryParse(userIdClaim, out int userId))
-        {
-            return Unauthorized();
-        }
+        int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
 
         var createdQuestion = _questionService.CreateQuestion(newQuestion, userId);
 
@@ -63,13 +55,9 @@ public class QuestionController : ControllerBase
     [HttpPut("{questionId}/changestatus")]
     public ActionResult<QuestionDto> ChangeQuestionStatus(int questionId, QuestionStatusUpdateRequest newStatus)
     {
-        var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-        if (!int.TryParse(userIdClaim, out int userId))
-        {
-            return Unauthorized();
-        }
+        int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
 
-        _questionService.ChangeQuestionStatus(questionId, newStatus.Status,userId);
+        _questionService.ChangeQuestionStatus(questionId, newStatus.Status, userId);
 
         return NoContent();
     }

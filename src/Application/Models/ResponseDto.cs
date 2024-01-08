@@ -9,6 +9,6 @@ namespace ConsultaAlumnosClean.Application.Models
         public int Id { get; set; }
         public string Message { get; set; } = string.Empty;
         public DateTime CreationDate { get; set; }
-        public User Creator { get; set; }
+        public UserDto Creator { get; set; }
     }
 }

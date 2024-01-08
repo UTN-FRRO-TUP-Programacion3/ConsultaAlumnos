@@ -22,12 +22,13 @@ public class ProfessorController : ControllerBase
     [HttpGet("pendingquestions")]
     public ActionResult<ICollection<QuestionDto>> GetPendingQuestions(bool withResponses = false)
     {
-        var user = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
         var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+        
         if (userRole != "profesor")
             return Forbid();
 
-        return _professorService.GetPendingQuestions(int.Parse(user), withResponses).ToList();
+        return _professorService.GetPendingQuestions(userId, withResponses).ToList();
 
     }
 }

@@ -7,6 +7,7 @@ using ConsultaAlumnosClean.Application.Models.Requests;
 using ConsultaAlumnosClean.Domain.Entities;
 using ConsultaAlumnosClean.Domain.Enums;
 using ConsultaAlumnosClean.Domain.Interfaces;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 
 namespace ConsultaAlumnosClean.Application.Services;
@@ -50,8 +51,9 @@ public class QuestionService : IQuestionService
 
     public QuestionDto? GetQuestion(int questionId)
     {
-        var consulta = _questionRepository.GetByIdAsync(questionId).Result;
-        return _mapper.Map<QuestionDto?>(consulta);
+        var question = _questionRepository.GetByIdAsync(questionId).Result;
+
+        return _mapper.Map<QuestionDto?>(question);
     }
 
     public bool IsQuestionIdValid(int questionId)
