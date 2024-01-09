@@ -6,10 +6,13 @@ namespace ConsultaAlumnosClean.Domain.Entities
 {
     public class Subject
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    
         public int Id { get; set; }
+
+        [Column(TypeName = "nvarchar(100)")]
         public string Name { get; set; }
+
+        [Column(TypeName = "nvarchar(100)")]
         public string Quarter { get; set; }
         public ICollection<Professor> Professors { get; set; } = new List<Professor>();
         public ICollection<Student> Students { get; set; } = new List<Student>();

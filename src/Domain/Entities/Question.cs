@@ -6,9 +6,13 @@ namespace ConsultaAlumnosClean.Domain.Entities
 {
     public class Question
     {
-        [Key]
+      
         public int Id { get; set; }
+
+        [Column(TypeName = "nvarchar(256)")]
         public string Title { get; set; } = string.Empty;
+
+        [Column(TypeName = "nvarchar(4000)")]
         public string Description { get; set; } = string.Empty;
         [ForeignKey("ProfessorId")]
         public Professor AssignedProfessor { get; set; }
@@ -22,8 +26,14 @@ namespace ConsultaAlumnosClean.Domain.Entities
       
         public ICollection<Response> Responses { get; set; } = new List<Response>();
         public QuestionState QuestionState { get; private set; } = QuestionState.WaitingProfessorAnwser;
+
+        [Column(TypeName = "datetime")]
         public DateTime CreationDate { get; private set; } = DateTime.Now;
+
+        [Column(TypeName = "datetime")]
         public DateTime? EndDate { get; set; }
+
+        [Column(TypeName = "datetime")]
         public DateTime? LastModificationDate { get; private set; } = DateTime.Now;
 
         public void AddResponse(Response response, int userId)

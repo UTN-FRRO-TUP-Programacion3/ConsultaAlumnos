@@ -17,10 +17,10 @@ namespace Infrastructure.Data.Migrations
                 name: "Subjects",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Quarter = table.Column<string>(type: "TEXT", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    Quarter = table.Column<string>(type: "nvarchar(100)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -31,14 +31,14 @@ namespace Infrastructure.Data.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    LastName = table.Column<string>(type: "TEXT", nullable: false),
-                    Password = table.Column<string>(type: "TEXT", nullable: false),
-                    Email = table.Column<string>(type: "TEXT", nullable: false),
-                    UserName = table.Column<string>(type: "TEXT", nullable: false),
-                    UserType = table.Column<string>(type: "TEXT", maxLength: 13, nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    UserType = table.Column<string>(type: "nvarchar(20)", maxLength: 13, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -49,8 +49,8 @@ namespace Infrastructure.Data.Migrations
                 name: "ProfessorSubject",
                 columns: table => new
                 {
-                    ProfessorsId = table.Column<int>(type: "INTEGER", nullable: false),
-                    SubjectsId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ProfessorsId = table.Column<int>(type: "int", nullable: false),
+                    SubjectsId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -59,31 +59,29 @@ namespace Infrastructure.Data.Migrations
                         name: "FK_ProfessorSubject_Subjects_SubjectsId",
                         column: x => x.SubjectsId,
                         principalTable: "Subjects",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_ProfessorSubject_Users_ProfessorsId",
                         column: x => x.ProfessorsId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Questions",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false),
-                    ProfessorId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CreatorStudentId = table.Column<int>(type: "INTEGER", nullable: false),
-                    SubjectId = table.Column<int>(type: "INTEGER", nullable: false),
-                    QuestionState = table.Column<int>(type: "INTEGER", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    LastModificationDate = table.Column<DateTime>(type: "TEXT", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(256)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(4000)", nullable: false),
+                    ProfessorId = table.Column<int>(type: "int", nullable: false),
+                    CreatorStudentId = table.Column<int>(type: "int", nullable: false),
+                    SubjectId = table.Column<int>(type: "int", nullable: false),
+                    QuestionState = table.Column<int>(type: "int", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime", nullable: true),
+                    LastModificationDate = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -92,28 +90,25 @@ namespace Infrastructure.Data.Migrations
                         name: "FK_Questions_Subjects_SubjectId",
                         column: x => x.SubjectId,
                         principalTable: "Subjects",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Questions_Users_CreatorStudentId",
                         column: x => x.CreatorStudentId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Questions_Users_ProfessorId",
                         column: x => x.ProfessorId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "StudentsSubjectsAttended",
                 columns: table => new
                 {
-                    StudentsId = table.Column<int>(type: "INTEGER", nullable: false),
-                    SubjectsAttendedId = table.Column<int>(type: "INTEGER", nullable: false)
+                    StudentsId = table.Column<int>(type: "int", nullable: false),
+                    SubjectsAttendedId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -122,25 +117,23 @@ namespace Infrastructure.Data.Migrations
                         name: "FK_StudentsSubjectsAttended_Subjects_SubjectsAttendedId",
                         column: x => x.SubjectsAttendedId,
                         principalTable: "Subjects",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_StudentsSubjectsAttended_Users_StudentsId",
                         column: x => x.StudentsId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Responses",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Message = table.Column<string>(type: "TEXT", nullable: false),
-                    CreatorId = table.Column<int>(type: "INTEGER", nullable: false),
-                    QuestionId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Message = table.Column<string>(type: "nvarchar(4000)", nullable: false),
+                    CreatorId = table.Column<int>(type: "int", nullable: false),
+                    QuestionId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -149,14 +142,12 @@ namespace Infrastructure.Data.Migrations
                         name: "FK_Responses_Questions_QuestionId",
                         column: x => x.QuestionId,
                         principalTable: "Questions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Responses_Users_CreatorId",
                         column: x => x.CreatorId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(

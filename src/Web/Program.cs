@@ -5,6 +5,7 @@ using ConsultaAlumnosClean.Domain.Interfaces;
 using ConsultaAlumnosClean.Infrastructure.Data;
 using ConsultaAlumnosClean.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -40,9 +41,16 @@ builder.Services.AddSwaggerGen(setupAction =>
 });
 
 
-
-builder.Services.AddDbContext<ApplicationDbContext>(dbContextOptions => dbContextOptions.UseSqlite(
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddDbContext<ApplicationDbContext>(dbContextOptions => dbContextOptions.UseSqlite(
     builder.Configuration["ConnectionStrings:ConsultaAlumnosDBConnectionString"]));
+}
+else if (builder.Environment.IsStaging())
+{
+    builder.Services.AddDbContext<ApplicationDbContext>(dbContextOptions => dbContextOptions.UseSqlServer(
+    builder.Configuration["ConnectionStrings:ConsultaAlumnosDBConnectionString"]));
+}
 
 builder.Services.AddAuthentication("Bearer") //"Bearer" es el tipo de auntenticación que tenemos que elegir después en PostMan para pasarle el token
     .AddJwtBearer(options => //Acá definimos la configuración de la autenticación. le decimos qué cosas queremos comprobar. La fecha de expiración se valida por defecto.
@@ -67,6 +75,7 @@ builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IRepositoryBase<Response>, EfRepository<Response>>();
+builder.Services.AddScoped<IRepositoryBase<Professor>, EfRepository<Professor>>();
 #endregion
 
 #region Services
@@ -87,7 +96,7 @@ builder.Services.AddTransient<IMailService, CloudMailService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
 {
     app.UseSwagger();
     app.UseSwaggerUI();

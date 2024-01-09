@@ -26,16 +26,11 @@ namespace ConsultaAlumnosClean.Infrastructure.Services
 
             if (user == null) return null;
 
-            if (authenticationRequest.UserType == "alumno")
+            if (authenticationRequest.UserType == typeof(Student).Name || authenticationRequest.UserType == typeof(Professor).Name )
             {
-                if (user.UserType == "Student" && user.Password == authenticationRequest.Password) return user;
+                if (user.UserType == authenticationRequest.UserType && user.Password == authenticationRequest.Password) return user;
             }
-
-            if (authenticationRequest.UserType == "profesor")
-            {
-                if (user.UserType == "Professor" && user.Password == authenticationRequest.Password) return user;
-            }
-
+            
             return null;
 
         }

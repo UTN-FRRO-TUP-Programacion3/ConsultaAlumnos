@@ -53,7 +53,10 @@ mkdir docs
 # Para crear las Migraciones con dotnet CLI
 - En la consola de comandos, posicionados en la carpeta /src
 ```
-$ dotnet ef migrations add InitialMigration --context ApplicationDbContext --startup-project Web --project Infrastructure -o Data/Migrations
-dotnet ef database update --context ApplicationDbContext --startup-project Web --project Infrastructure
+dotnet ef migrations add InitialMigration --context ApplicationDbContext --startup-project Web --project Infrastructure -o Data/Migrations -- --environment development
+dotnet ef database update --context ApplicationDbContext --startup-project Web --project Infrastructure -- --environment development
 ```
-
+Para borrar la última migración, deshaciendo los cambios en la base de datos
+```
+dotnet ef migrations remove -f --startup-project Web --project Infrastructure -- --environment development
+```

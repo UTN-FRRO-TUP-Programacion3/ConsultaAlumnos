@@ -6,6 +6,7 @@ using ConsultaAlumnosClean.Application.Models;
 using ConsultaAlumnosClean.Application.Models.Requests;
 using ConsultaAlumnosClean.Domain.Entities;
 using ConsultaAlumnosClean.Domain.Enums;
+using ConsultaAlumnosClean.Domain.Exceptions;
 using ConsultaAlumnosClean.Domain.Interfaces;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
@@ -17,18 +18,21 @@ public class QuestionService : IQuestionService
     private readonly IMapper _mapper;
     private readonly IQuestionRepository _questionRepository;
     private readonly IMailService _mailService;
-    private readonly IUserRepository _userRepository;
+    private readonly IStudentRepository _studentRepository;
+    private readonly IRepositoryBase<Professor> _professorRepository;
     
 
     public QuestionService(IMapper mapper,
         IQuestionRepository questionRepository,
         IMailService mailService,
-        IUserRepository userRepository)
+        IStudentRepository studentRepository,
+        IRepositoryBase<Professor> professorRepository)
     {
         _mapper = mapper;
         _questionRepository = questionRepository;
         _mailService = mailService;
-        _userRepository = userRepository;
+        _studentRepository = studentRepository;
+        _professorRepository = professorRepository;
     }
 
     public QuestionDto CreateQuestion(QuestionCreateRequest newQuestionDto, int userId)
@@ -37,8 +41,8 @@ public class QuestionService : IQuestionService
 
         newQuestion.CreatorStudentId = userId;
 
-        var student = _userRepository.GetByIdAsync(userId).Result;
-        var professor = _userRepository.GetByIdAsync(newQuestionDto.ProfessorId).Result;
+        var student = _studentRepository.GetByIdAsync(userId).Result ?? throw new NotFoundException(typeof(Student).ToString(), userId);
+        var professor = _professorRepository.GetByIdAsync(newQuestionDto.ProfessorId).Result ?? throw new NotFoundException(typeof(Professor).ToString(), userId);
 
         _ = _questionRepository.AddAsync(newQuestion).Result;
         if (_questionRepository.SaveChangesAsync().Result > 0)

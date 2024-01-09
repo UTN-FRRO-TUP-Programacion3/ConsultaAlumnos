@@ -1,6 +1,11 @@
 ﻿using ConsultaAlumnosClean.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace ConsultaAlumnosClean.Infrastructure.Data;
+
+/// <summary>
+/// One convention of Code First is implicit key properties; Code First will look for a property named “Id”, or a combination of class name and “Id”, such as “BlogId”. This property will map to a primary key column in the database.
+/// </summary>
 
 public class ApplicationDbContext : DbContext
 {
@@ -19,6 +24,10 @@ public class ApplicationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>().HasDiscriminator(u => u.UserType);
+
+        modelBuilder.Entity<Subject>()
+            .Property(b => b.Id)
+            .ValueGeneratedOnAdd();
 
         modelBuilder.Entity<Student>().HasData(
             new Student
@@ -109,5 +118,11 @@ public class ApplicationDbContext : DbContext
                 ));
 
         base.OnModelCreating(modelBuilder);
+
+        //Disable all default relationship cascade delete behavior
+        foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+        {
+            relationship.DeleteBehavior = DeleteBehavior.NoAction;
+        }
     }
 }

@@ -5,9 +5,10 @@ namespace ConsultaAlumnosClean.Domain.Entities
 {
     public class Response
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    
         public int Id { get; set; }
+
+        [Column(TypeName = "nvarchar(4000)")]
         public string Message { get; set; }
         public DateTime CreationDate { get; } = DateTime.Now;
         [ForeignKey("CreatorId")]
