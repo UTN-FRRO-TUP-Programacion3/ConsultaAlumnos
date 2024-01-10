@@ -1,7 +1,6 @@
-﻿
-using ConsultaAlumnos.API.Models.Responses;
-using ConsultaAlumnosClean.Application.Interfaces;
+﻿using ConsultaAlumnosClean.Application.Interfaces;
 using ConsultaAlumnosClean.Application.Models;
+using ConsultaAlumnosClean.Application.Models.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;

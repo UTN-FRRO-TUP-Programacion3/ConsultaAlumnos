@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using ConsultaAlumnos.API.Models.Responses;
 using ConsultaAlumnosClean.Application.Interfaces;
 using ConsultaAlumnosClean.Application.Models;
+using ConsultaAlumnosClean.Application.Models.Requests;
 using ConsultaAlumnosClean.Domain.Entities;
 using ConsultaAlumnosClean.Domain.Interfaces;
 using System.Runtime.CompilerServices;

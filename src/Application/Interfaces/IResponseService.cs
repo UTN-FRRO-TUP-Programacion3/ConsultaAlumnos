@@ -1,7 +1,5 @@
-﻿
-
-using ConsultaAlumnos.API.Models.Responses;
-using ConsultaAlumnosClean.Application.Models;
+﻿using ConsultaAlumnosClean.Application.Models;
+using ConsultaAlumnosClean.Application.Models.Requests;
 
 namespace ConsultaAlumnosClean.Application.Interfaces;
 

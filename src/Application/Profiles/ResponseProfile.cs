@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using ConsultaAlumnos.API.Models.Responses;
 using ConsultaAlumnosClean.Application.Models;
+using ConsultaAlumnosClean.Application.Models.Requests;
 using ConsultaAlumnosClean.Domain.Entities;
 
 namespace ConsultaAlumnosClean.Application.Profiles;

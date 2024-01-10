@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ConsultaAlumnos.API.Models.Responses
+namespace ConsultaAlumnosClean.Application.Models.Requests
 {
     public class ResponseCreateRequest
     {
