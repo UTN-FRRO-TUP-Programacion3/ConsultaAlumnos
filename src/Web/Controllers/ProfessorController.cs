@@ -1,5 +1,6 @@
 ﻿using ConsultaAlumnosClean.Application.Interfaces;
 using ConsultaAlumnosClean.Application.Models;
+using ConsultaAlumnosClean.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -25,7 +26,7 @@ public class ProfessorController : ControllerBase
         int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
         var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
         
-        if (userRole != "profesor")
+        if (userRole != typeof(Professor).Name)
             return Forbid();
 
         return _professorService.GetPendingQuestions(userId, withResponses).ToList();

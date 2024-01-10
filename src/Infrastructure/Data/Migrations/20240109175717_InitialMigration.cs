@@ -17,8 +17,8 @@ namespace Infrastructure.Data.Migrations
                 name: "Subjects",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     Quarter = table.Column<string>(type: "nvarchar(100)", nullable: false)
                 },
@@ -31,8 +31,8 @@ namespace Infrastructure.Data.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(100)", nullable: false),
@@ -49,8 +49,8 @@ namespace Infrastructure.Data.Migrations
                 name: "ProfessorSubject",
                 columns: table => new
                 {
-                    ProfessorsId = table.Column<int>(type: "int", nullable: false),
-                    SubjectsId = table.Column<int>(type: "int", nullable: false)
+                    ProfessorsId = table.Column<int>(type: "INTEGER", nullable: false),
+                    SubjectsId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -71,14 +71,14 @@ namespace Infrastructure.Data.Migrations
                 name: "Questions",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "nvarchar(256)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(4000)", nullable: false),
-                    ProfessorId = table.Column<int>(type: "int", nullable: false),
-                    CreatorStudentId = table.Column<int>(type: "int", nullable: false),
-                    SubjectId = table.Column<int>(type: "int", nullable: false),
-                    QuestionState = table.Column<int>(type: "int", nullable: false),
+                    ProfessorId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CreatorStudentId = table.Column<int>(type: "INTEGER", nullable: false),
+                    SubjectId = table.Column<int>(type: "INTEGER", nullable: false),
+                    QuestionState = table.Column<int>(type: "INTEGER", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime", nullable: true),
                     LastModificationDate = table.Column<DateTime>(type: "datetime", nullable: true)
@@ -107,8 +107,8 @@ namespace Infrastructure.Data.Migrations
                 name: "StudentsSubjectsAttended",
                 columns: table => new
                 {
-                    StudentsId = table.Column<int>(type: "int", nullable: false),
-                    SubjectsAttendedId = table.Column<int>(type: "int", nullable: false)
+                    StudentsId = table.Column<int>(type: "INTEGER", nullable: false),
+                    SubjectsAttendedId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -129,11 +129,11 @@ namespace Infrastructure.Data.Migrations
                 name: "Responses",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     Message = table.Column<string>(type: "nvarchar(4000)", nullable: false),
-                    CreatorId = table.Column<int>(type: "int", nullable: false),
-                    QuestionId = table.Column<int>(type: "int", nullable: false)
+                    CreatorId = table.Column<int>(type: "INTEGER", nullable: false),
+                    QuestionId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

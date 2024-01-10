@@ -2,6 +2,7 @@
 
 using ConsultaAlumnosClean.Application.Interfaces;
 using ConsultaAlumnosClean.Application.Models;
+using ConsultaAlumnosClean.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -24,7 +25,7 @@ public class StudentController : ControllerBase
     {
         int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
         var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
-        if (userRole != "alumno")
+        if (userRole != typeof(Student).Name)
             return Forbid();
 
         return _studentService.GetSubjectsByStudent(userId).ToList();
