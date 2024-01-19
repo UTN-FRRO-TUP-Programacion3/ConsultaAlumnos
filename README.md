@@ -93,10 +93,11 @@ rm UnitTest1.cs
 ```
 
 ```
-dotnet new xunit -o Application.UnitTests
-dotnet add Application.UnitTests/Application.UnitTests.csproj reference ../src/Application/Application.csproj
-dotnet add Application.UnitTests/Application.UnitTests.csproj reference ../src/Infrastructure/Infrastructure.csproj
-dotnet sln ../ConsultaAlumnosClean.sln add ../tests/Application.UnitTests/Application.UnitTests.csproj
-cd Application.UnitTests
+dotnet new xunit -o Application.IntegrationTests
+dotnet add Application.IntegrationTests/Application.IntegrationTests.csproj reference ../src/Application/Application.csproj
+dotnet add Application.IntegrationTests/Application.IntegrationTests.csproj reference ../src/Infrastructure/Infrastructure.csproj
+dotnet sln ../ConsultaAlumnosClean.sln add ../tests/Application.IntegrationTests/Application.IntegrationTests.csproj
+cd Application.IntegrationTests
+dotnet add package Moq --version 4.20.70
 rm UnitTest1.cs
 ```
