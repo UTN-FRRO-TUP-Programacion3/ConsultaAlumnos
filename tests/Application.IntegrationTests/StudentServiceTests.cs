@@ -21,7 +21,7 @@ namespace Application.IntegrationTests
             //Arrange
             var mapper = TestMapperFactory.CreateMapper();
 
-            ApplicationDbContext context = TestDbContextFactory.CreateTestApplicationDbContext();
+            ApplicationDbContext context = TestDbContextFactory.CreateTestApplicationDbContextWithInMemoryDatabase();
 
             var studentRepository = new StudentRepository(context);
 

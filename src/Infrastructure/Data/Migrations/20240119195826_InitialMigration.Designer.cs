@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConsultaAlumnosClean.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240119163816_InitialMigration")]
+    [Migration("20240119195826_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />

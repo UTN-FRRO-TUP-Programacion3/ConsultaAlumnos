@@ -27,7 +27,7 @@ namespace Application.UnitTests
             //Arrange
             var mapper = TestMapperFactory.CreateMapper();
 
-            ApplicationDbContext context = TestDbContextFactory.CreateTestApplicationDbContext();
+            ApplicationDbContext context = TestDbContextFactory.CreateTestApplicationDbContextWithInMemoryDatabase();
 
             var questionRepository = new QuestionRepository(context);
 

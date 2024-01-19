@@ -9,15 +9,15 @@ namespace Domain.UnitTests
 {
     public class ResponseTests
     {
-        [Fact]
-        public void CreateAResponseWithEmptyMessage()
-        {
-            //Arrange
+        //[Fact]
+        //public void CreateAResponseWithEmptyMessage()
+        //{
+        //    //Arrange
 
-            //Act
+        //    //Act
 
-            //Assert
-            Assert.Throws<ArgumentException>(() => _ = new Response(new Student { Id = 1 }, ""));
-        }
+        //    //Assert
+        //    Assert.Throws<ArgumentException>(() => _ = new Response(new Student { Id = 1 }, ""));
+        //}
     }
 }

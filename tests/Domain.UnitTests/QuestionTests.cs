@@ -66,7 +66,7 @@ namespace Domain.UnitTests
 
 
         [Fact]
-        public void AddResponseToAQuestion()
+        public void AddResponse()
         {
             //Arrange
             Question question = new Question();
@@ -82,6 +82,22 @@ namespace Domain.UnitTests
 
             //Assert
             Assert.True(question.Responses.Count() == 1);
+        }
+
+        [Fact]
+        public void AddResponseWithEmptyMessage()
+        {
+            //Arrange
+            Question question = new Question();
+            question.Student = new Student() { Id = 1 };
+            question.AssignedProfessor = new Professor() { Id = 2 };
+
+            Response response = new Response(
+                new Professor() { Id = 2 },
+                "");
+
+            //Act and Assert
+            Assert.Throws<ApplicationException>(() => question.AddResponse(response));
         }
 
 

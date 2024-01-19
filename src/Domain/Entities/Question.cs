@@ -71,9 +71,13 @@ namespace ConsultaAlumnosClean.Domain.Entities
                 throw new AppValidationException("Action not allowed becouse the answer in Resolved");
             }
 
+            if (string.IsNullOrEmpty(response.Message))
+            {
+                throw new ApplicationException("Response message can not be empty");
+            }
 
+            
             QuestionState newQuestionState = response.Creator.Id == AssignedProfessor.Id ? QuestionState.WaitingStudentAnwser : QuestionState.WaitingProfessorAnwser;
-
 
             Responses.Add(response);
             this.QuestionState = newQuestionState;
