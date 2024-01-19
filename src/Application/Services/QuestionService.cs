@@ -42,7 +42,7 @@ public class QuestionService : IQuestionService
         newQuestion.CreatorStudentId = userId;
 
         var student = _studentRepository.GetByIdAsync(userId).Result ?? throw new NotFoundException(typeof(Student).ToString(), userId);
-        var professor = _professorRepository.GetByIdAsync(newQuestionDto.ProfessorId).Result ?? throw new NotFoundException(typeof(Professor).ToString(), userId);
+        var professor = _professorRepository.GetByIdAsync(newQuestionDto.ProfessorId).Result ?? throw new NotFoundException(typeof(Professor).ToString(), newQuestionDto.ProfessorId);
 
         _ = _questionRepository.AddAsync(newQuestion).Result;
         if (_questionRepository.SaveChangesAsync().Result > 0)

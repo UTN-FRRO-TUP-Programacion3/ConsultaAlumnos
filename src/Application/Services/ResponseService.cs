@@ -31,7 +31,7 @@ public class ResponseService : IResponseService
         Question? question = _questionRepository.GetByIdAsync(questionId).Result
             ?? throw(new Exception("Question not found"));
 
-        question.AddResponse(response, userId);
+        question.AddResponse(response);
 
         _ = _questionRepository.SaveChangesAsync().Result;
 

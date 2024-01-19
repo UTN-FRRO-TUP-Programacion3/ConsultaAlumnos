@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace Infrastructure.Data.Migrations
+namespace ConsultaAlumnosClean.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
     public partial class InitialMigration : Migration
@@ -78,10 +78,10 @@ namespace Infrastructure.Data.Migrations
                     ProfessorId = table.Column<int>(type: "INTEGER", nullable: false),
                     CreatorStudentId = table.Column<int>(type: "INTEGER", nullable: false),
                     SubjectId = table.Column<int>(type: "INTEGER", nullable: false),
-                    QuestionState = table.Column<int>(type: "INTEGER", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime", nullable: true),
-                    LastModificationDate = table.Column<DateTime>(type: "datetime", nullable: true)
+                    LastModificationDate = table.Column<DateTime>(type: "datetime", nullable: true),
+                    QuestionState = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

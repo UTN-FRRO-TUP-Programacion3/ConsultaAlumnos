@@ -1,4 +1,5 @@
 ﻿using ConsultaAlumnosClean.Domain.Enums;
+using ConsultaAlumnosClean.Domain.Exceptions;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -6,7 +7,6 @@ namespace ConsultaAlumnosClean.Domain.Entities
 {
     public class Question
     {
-      
         public int Id { get; set; }
 
         [Column(TypeName = "nvarchar(256)")]
@@ -14,19 +14,13 @@ namespace ConsultaAlumnosClean.Domain.Entities
 
         [Column(TypeName = "nvarchar(4000)")]
         public string Description { get; set; } = string.Empty;
-        [ForeignKey("ProfessorId")]
-        public Professor AssignedProfessor { get; set; }
+        
         public int ProfessorId { get; set; }
-        [ForeignKey("CreatorStudentId")]
-        public Student Student { get; set; } 
+        
         public int CreatorStudentId { get; set; }
-        [ForeignKey("SubjectId")]
-        public Subject Subject { get; set; }
+        
         public int SubjectId { get; set; }
       
-        public ICollection<Response> Responses { get; set; } = new List<Response>();
-        public QuestionState QuestionState { get; private set; } = QuestionState.WaitingProfessorAnwser;
-
         [Column(TypeName = "datetime")]
         public DateTime CreationDate { get; private set; } = DateTime.Now;
 
@@ -36,30 +30,59 @@ namespace ConsultaAlumnosClean.Domain.Entities
         [Column(TypeName = "datetime")]
         public DateTime? LastModificationDate { get; private set; } = DateTime.Now;
 
-        public void AddResponse(Response response, int userId)
-        {
-            QuestionState newQuestionState;
+        public ICollection<Response> Responses { get; set; } = new List<Response>();
 
-            if (userId == AssignedProfessor.Id)
+        public QuestionState QuestionState { get; private set; } = QuestionState.WaitingProfessorAnwser;
+
+        [ForeignKey("ProfessorId")]
+        public Professor AssignedProfessor { get; set; }
+
+        [ForeignKey("CreatorStudentId")]
+        public Student Student { get; set; }
+
+        [ForeignKey("SubjectId")]
+        public Subject Subject { get; set; }
+
+        public void AddResponse(Response response)
+        {
+            //Validations
+            if(response.Creator.Id != AssignedProfessor.Id && response.Creator.Id != Student.Id)
             {
-                newQuestionState = QuestionState.WaitingStudentAnwser;
-            } 
-            else if(userId == Student.Id)
-            {
-                newQuestionState = QuestionState.WaitingProfessorAnwser;
-            } 
-            else
-            {
-                throw new Exception("User not allowed to answer this question");
+                throw new NotAllowedException("Response creator is not allowed to add reponses to this question");
             }
+            
+            if(QuestionState == QuestionState.WaitingProfessorAnwser && response.Creator.Id != AssignedProfessor.Id)
+            {
+                throw new AppValidationException("Action not allowed becouse waiting for Professor answer");
+            }
+
+            if (QuestionState == QuestionState.WaitingStudentAnwser && response.Creator.Id != Student.Id)
+            {
+                throw new AppValidationException("Action not allowed becouse waiting for Student answer");
+            }
+
+            if (QuestionState == QuestionState.Canceled )
+            {
+                throw new AppValidationException("Action not allowed becouse the answer in Canceled");
+            }
+
+            if (QuestionState == QuestionState.Resolved)
+            {
+                throw new AppValidationException("Action not allowed becouse the answer in Resolved");
+            }
+
+
+            QuestionState newQuestionState = response.Creator.Id == AssignedProfessor.Id ? QuestionState.WaitingStudentAnwser : QuestionState.WaitingProfessorAnwser;
+
 
             Responses.Add(response);
             this.QuestionState = newQuestionState;
+            this.LastModificationDate = DateTime.Now;
         }
 
         public void ChangeQuestionStatus(QuestionState questionState,int userId)
         {
-            //Validacines
+            //Validations
             if (AssignedProfessor.Id != userId && Student.Id != userId)
             {
                 throw new Exception("User not allowed to modify this question");

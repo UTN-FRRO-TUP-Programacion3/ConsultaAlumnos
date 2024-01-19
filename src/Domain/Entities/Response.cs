@@ -9,7 +9,16 @@ namespace ConsultaAlumnosClean.Domain.Entities
         public int Id { get; set; }
 
         [Column(TypeName = "nvarchar(4000)")]
-        public string Message { get; set; }
+        public string Message
+        {
+            get => Message;
+            set
+            {
+                if (string.IsNullOrEmpty(Message)) throw new ArgumentException();
+                Message = value;
+            }
+        }
+
         public DateTime CreationDate { get; } = DateTime.Now;
         [ForeignKey("CreatorId")]
         public User Creator { get; set; }
@@ -17,6 +26,21 @@ namespace ConsultaAlumnosClean.Domain.Entities
         [ForeignKey("QuestionId")]
         public Question Question { get; set; }
         public int QuestionId { get; set; }
+
+        public Response(User creator,string message) : this(message)
+        {
+            Creator = creator;
+        }
+
+        //Para Entity framework, porque
+        //EF Core cannot set navigation properties (such as Creator) using a constructor.
+        public Response(string message) 
+        {
+            if (string.IsNullOrEmpty(message))
+                throw new ArgumentException(nameof(message));
+
+            Message = message;
+        }
 
     }
 }

@@ -60,3 +60,43 @@ Para borrar la última migración, deshaciendo los cambios en la base de datos
 ```
 dotnet ef migrations remove -f --startup-project Web --project Infrastructure -- --environment development
 ```
+
+# Configuración del proyecto
+- Agregar en cada proyecto, las siguientes líneas
+```
+    <PropertyGroup>
+        <RootNamespace>[SolutionName].[ProjectName]</RootNamespace>
+        <AssemblyName>[SolutionName].[ProjectName]</AssemblyName>
+    </PropertyGroup>
+```
+Ejemplo:
+```
+    <PropertyGroup>
+        <RootNamespace>ConsultaAlumnosClean.Domain</RootNamespace>
+        <AssemblyName>ConsultaAlumnosClean.Domain</AssemblyName>
+    </PropertyGroup>
+```
+
+Para que los namespaces sean sugeridos según el RootNamespace en lugar de la carpeta donde se encuentra el archivo, y para que el nombre de los assembies
+
+## Tests projects
+Para crear los proyectos de testing
+Posicionados en la carpeta tests
+
+
+```
+dotnet new xunit -o Domain.UnitTests
+dotnet add Domain.UnitTests/Domain.UnitTests.csproj reference ../src/Domain/Domain.csproj
+dotnet sln ../ConsultaAlumnosClean.sln add ../tests/Domain.UnitTests/Domain.UnitTests.csproj
+cd Domain.UnitTests
+rm UnitTest1.cs
+```
+
+```
+dotnet new xunit -o Application.UnitTests
+dotnet add Application.UnitTests/Application.UnitTests.csproj reference ../src/Application/Application.csproj
+dotnet add Application.UnitTests/Application.UnitTests.csproj reference ../src/Infrastructure/Infrastructure.csproj
+dotnet sln ../ConsultaAlumnosClean.sln add ../tests/Application.UnitTests/Application.UnitTests.csproj
+cd Application.UnitTests
+rm UnitTest1.cs
+```
