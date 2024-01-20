@@ -7,5 +7,5 @@ namespace ConsultaAlumnosClean.Application.Interfaces;
 
 public interface ICustomAuthenticationService
 {
-    User? ValidateUser(AuthenticationRequest authenticationRequest);
+    string Autenticar(AuthenticationRequest authenticationRequest);
 }

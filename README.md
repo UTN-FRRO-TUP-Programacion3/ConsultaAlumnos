@@ -83,7 +83,6 @@ Para que los namespaces sean sugeridos según el RootNamespace en lugar de la ca
 Para crear los proyectos de testing
 Posicionados en la carpeta tests
 
-
 ```
 dotnet new xunit -o Domain.UnitTests
 dotnet add Domain.UnitTests/Domain.UnitTests.csproj reference ../src/Domain/Domain.csproj
@@ -101,3 +100,19 @@ cd Application.IntegrationTests
 dotnet add package Moq --version 4.20.70
 rm UnitTest1.cs
 ```
+
+```
+dotnet new xunit -o Web.FunctionalTests
+dotnet add Web.FunctionalTests/Web.FunctionalTests.csproj reference ../src/Web/Web.csproj
+dotnet sln ../ConsultaAlumnosClean.sln add ../tests/Web.FunctionalTests/Web.FunctionalTests.csproj
+cd Web.FunctionalTests
+dotnet add package Microsoft.AspNetCore.Mvc.Testing --version 8.0.1
+rm UnitTest1.cs
+```
+Se debe agregar en Program.cs
+```
+public partial class Program
+{
+}
+```
+Para poder utilizar WebApplicationFactory

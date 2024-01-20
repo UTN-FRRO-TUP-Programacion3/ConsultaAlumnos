@@ -21,7 +21,7 @@ public class StudentController : ControllerBase
         this._studentService = studentService;
     }
     [HttpGet("subjects")]
-    public ActionResult<ICollection<SubjectDto>> GetMaterias()
+    public ActionResult<ICollection<SubjectDto>> GetSubjects()
     {
         int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
         var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;

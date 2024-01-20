@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text;
+using static ConsultaAlumnosClean.Infrastructure.Services.AutenticacionService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +52,10 @@ builder.Services.AddSwaggerGen(setupAction =>
 builder.Services.AddDbContext<ApplicationDbContext>(dbContextOptions => dbContextOptions.UseSqlite(
 builder.Configuration["ConnectionStrings:ConsultaAlumnosDBConnectionString"]));
 
+
+builder.Services.Configure<AutenticacionServiceOptions>(
+    builder.Configuration.GetSection(AutenticacionServiceOptions.AutenticacionService));
+
 builder.Services.AddAuthentication("Bearer") //"Bearer" es el tipo de auntenticación que tenemos que elegir después en PostMan para pasarle el token
     .AddJwtBearer(options => //Acá definimos la configuración de la autenticación. le decimos qué cosas queremos comprobar. La fecha de expiración se valida por defecto.
     {
@@ -59,9 +64,9 @@ builder.Services.AddAuthentication("Bearer") //"Bearer" es el tipo de auntentica
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Authentication:Issuer"],
-            ValidAudience = builder.Configuration["Authentication:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Authentication:SecretForKey"]))
+            ValidIssuer = builder.Configuration["AutenticacionService:Issuer"],
+            ValidAudience = builder.Configuration["AutenticacionService:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["AutenticacionService:SecretForKey"]))
         };
     }
 );
@@ -107,3 +112,9 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+// Make the implicit Program.cs class public, so integration tests can reference the correct assembly for host building
+public partial class Program
+{
+}
