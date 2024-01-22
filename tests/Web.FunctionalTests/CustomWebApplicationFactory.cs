@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System.Net.Http.Json;
 
 namespace Web.FunctionalTests;
 
@@ -41,21 +42,6 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
 
             // Ensure the database is created.
             db.Database.EnsureCreated();
-
-            try
-            {
-                // Can also skip creating the items
-                //if (!db.ToDoItems.Any())
-                //{
-                // Seed the database with test data.
-                //SeedData.PopulateTestData(db);
-                //}
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "An error occurred seeding the " +
-                                    "database with test messages. Error: {exceptionMessage}", ex.Message);
-            }
         }
 
         return host;
@@ -88,4 +74,19 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
                 //});
             });
     }
+
+
+    public async Task<string> GetAccessTokenAsync(string userName, string password, string userType)
+    {
+        using (var _localClient = CreateClient())
+        {
+            //Get the token
+            var authRequest = new HttpRequestMessage(HttpMethod.Post, "/api/authentication/authenticate");
+            authRequest.Content = JsonContent.Create(new { userName, password, userType });
+            HttpResponseMessage AuthResponse = await _localClient.SendAsync(authRequest);
+            string token = await AuthResponse.Content.ReadAsStringAsync();
+            return token;
+        }
+    }
+
 }

@@ -15,9 +15,8 @@ using ConsultaAlumnosClean.Application.Interfaces;
 using Moq;
 using ConsultaAlumnosClean.Domain.Enums;
 using ConsultaAlumnosClean.Application.Profiles;
-using Application.IntegrationTests;
 
-namespace Application.UnitTests
+namespace Application.IntegrationTests
 {
     public class QuestionServiceTests
     {
@@ -49,7 +48,7 @@ namespace Application.UnitTests
 
             };
 
-            var result = service.CreateQuestion(questionCreateRequest,1);
+            var result = service.CreateQuestion(questionCreateRequest, 1);
 
             //Assert
             Assert.IsType<QuestionDto>(result);
@@ -57,7 +56,7 @@ namespace Application.UnitTests
             Assert.Equal(questionCreateRequest.ProfessorId, result.ProfessorId);
             Assert.Equal(questionCreateRequest.Description, result.Description);
             Assert.Equal(questionCreateRequest.SubjectId, result.SubjectId);
-            Assert.Equal(QuestionState.WaitingProfessorAnwser,result.QuestionState);
+            Assert.Equal(QuestionState.WaitingProfessorAnwser, result.QuestionState);
 
         }
 
