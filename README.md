@@ -23,14 +23,14 @@ Fuente: [Clean Architecture with .NET Core: Getting Started](https://jasontaylor
 
 # Pasos para crear el proyecto con dotnet CLI
 - Crear repositorio en Github.
-- Crear carpeta local ConsultaAlumnosClean.
+- Crear carpeta local ConsultaAlumnos.
 - En la consola de comandos, dentro de la carpeta ConsultaAlumnosClear
 ```
 git init
 git add README.md
 git commit -m "first commit"
 git branch -M main
-git remote add origin https://github.com/efalabrini/ConsultaAlumnosClean.git
+git remote add origin [URL del repositorio]
 git push -u origin main
 dotnet new gitignore
 mkdir src
@@ -40,7 +40,7 @@ dotnet new classlib -n "Domain"
 dotnet new classlib -n "Application"
 dotnet new classlib -n "Infrastructure"
 cd ..
-dotnet sln ConsultaAlumnosClean.sln add src/**/*.csproj
+dotnet sln ConsultaAlumnos.sln add src/**/*.csproj
 cd src
 dotnet add Application/Application.csproj reference Domain/Domain.csproj
 dotnet add Infrastructure/Infrastructure.csproj reference Application/Application.csproj
@@ -72,8 +72,8 @@ dotnet ef migrations remove -f --startup-project Web --project Infrastructure --
 Ejemplo:
 ```
     <PropertyGroup>
-        <RootNamespace>ConsultaAlumnosClean.Domain</RootNamespace>
-        <AssemblyName>ConsultaAlumnosClean.Domain</AssemblyName>
+        <RootNamespace>ConsultaAlumnos.Domain</RootNamespace>
+        <AssemblyName>ConsultaAlumnos.Domain</AssemblyName>
     </PropertyGroup>
 ```
 
@@ -86,7 +86,7 @@ Posicionados en la carpeta tests
 ```
 dotnet new xunit -o Domain.UnitTests
 dotnet add Domain.UnitTests/Domain.UnitTests.csproj reference ../src/Domain/Domain.csproj
-dotnet sln ../ConsultaAlumnosClean.sln add ../tests/Domain.UnitTests/Domain.UnitTests.csproj
+dotnet sln ../ConsultaAlumnos.sln add ../tests/Domain.UnitTests/Domain.UnitTests.csproj
 cd Domain.UnitTests
 rm UnitTest1.cs
 ```
@@ -95,7 +95,7 @@ rm UnitTest1.cs
 dotnet new xunit -o Application.IntegrationTests
 dotnet add Application.IntegrationTests/Application.IntegrationTests.csproj reference ../src/Application/Application.csproj
 dotnet add Application.IntegrationTests/Application.IntegrationTests.csproj reference ../src/Infrastructure/Infrastructure.csproj
-dotnet sln ../ConsultaAlumnosClean.sln add ../tests/Application.IntegrationTests/Application.IntegrationTests.csproj
+dotnet sln ../ConsultaAlumnos.sln add ../tests/Application.IntegrationTests/Application.IntegrationTests.csproj
 cd Application.IntegrationTests
 dotnet add package Moq --version 4.20.70
 rm UnitTest1.cs
@@ -104,7 +104,7 @@ rm UnitTest1.cs
 ```
 dotnet new xunit -o Web.FunctionalTests
 dotnet add Web.FunctionalTests/Web.FunctionalTests.csproj reference ../src/Web/Web.csproj
-dotnet sln ../ConsultaAlumnosClean.sln add ../tests/Web.FunctionalTests/Web.FunctionalTests.csproj
+dotnet sln ../ConsultaAlumnos.sln add ../tests/Web.FunctionalTests/Web.FunctionalTests.csproj
 cd Web.FunctionalTests
 dotnet add package Microsoft.AspNetCore.Mvc.Testing --version 8.0.1
 rm UnitTest1.cs
