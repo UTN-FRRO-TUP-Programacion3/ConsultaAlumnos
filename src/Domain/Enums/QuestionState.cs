@@ -1,4 +1,4 @@
-﻿namespace ConsultaAlumnosClean.Domain.Enums
+﻿namespace ConsultaAlumnos.Domain.Enums
 {
     public enum QuestionState
     {

@@ -1,9 +1,8 @@
-﻿
-using ConsultaAlumnosClean.Domain.Entities;
-using ConsultaAlumnosClean.Domain.Interfaces;
+﻿using ConsultaAlumnos.Domain.Entities;
+using ConsultaAlumnos.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace ConsultaAlumnosClean.Infrastructure.Data;
+namespace ConsultaAlumnos.Infrastructure.Data;
 
 public class StudentRepository : EfRepository<Student>, IStudentRepository
 {

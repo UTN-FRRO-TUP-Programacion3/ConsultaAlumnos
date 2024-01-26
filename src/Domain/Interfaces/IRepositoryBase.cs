@@ -5,9 +5,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsultaAlumnosClean.Domain.Interfaces;
+namespace ConsultaAlumnos.Domain.Interfaces;
 
-public interface IRepositoryBase<T>  where T : class
+public interface IRepositoryBase<T> where T : class
 {
     /// <summary>
     /// Finds an entity with the given primary key value.

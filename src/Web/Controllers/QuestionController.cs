@@ -1,12 +1,12 @@
 ﻿
-using ConsultaAlumnosClean.Application.Interfaces;
-using ConsultaAlumnosClean.Application.Models;
-using ConsultaAlumnosClean.Application.Models.Requests;
+using ConsultaAlumnos.Application.Interfaces;
+using ConsultaAlumnos.Application.Models;
+using ConsultaAlumnos.Application.Models.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace ConsultaAlumnosClean.Web.Controllers;
+namespace ConsultaAlumnos.Web.Controllers;
 
 [Route("api/question")]
 [ApiController]
@@ -17,7 +17,7 @@ public class QuestionController : ControllerBase
 
     public QuestionController(IQuestionService questionService)
     {
-        this._questionService = questionService;
+        _questionService = questionService;
     }
 
     [HttpGet("{questionId}", Name = "GetQuestion")]
@@ -30,7 +30,7 @@ public class QuestionController : ControllerBase
         if (question is null)
             return NotFound();
 
-        if (question.CreatorStudentId  != userId && question.ProfessorId != userId)
+        if (question.CreatorStudentId != userId && question.ProfessorId != userId)
             return Forbid();
 
         return Ok(question);

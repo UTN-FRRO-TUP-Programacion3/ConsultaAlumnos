@@ -1,12 +1,12 @@
-﻿using ConsultaAlumnosClean.Application.Interfaces;
-using ConsultaAlumnosClean.Application.Models;
-using ConsultaAlumnosClean.Domain.Entities;
+﻿using ConsultaAlumnos.Application.Interfaces;
+using ConsultaAlumnos.Application.Models;
+using ConsultaAlumnos.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 
-namespace ConsultaAlumnosClean.Web.Controllers;
+namespace ConsultaAlumnos.Web.Controllers;
 
 [ApiController]
 [Authorize]
@@ -17,7 +17,7 @@ public class ProfessorController : ControllerBase
 
     public ProfessorController(IProfessorService professorService)
     {
-        this._professorService = professorService;
+        _professorService = professorService;
     }
 
     [HttpGet("pendingquestions")]
@@ -25,7 +25,7 @@ public class ProfessorController : ControllerBase
     {
         int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
         var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
-        
+
         if (userRole != typeof(Professor).Name)
             return Forbid();
 

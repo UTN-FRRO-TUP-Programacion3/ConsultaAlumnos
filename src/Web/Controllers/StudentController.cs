@@ -1,13 +1,13 @@
 ﻿// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-using ConsultaAlumnosClean.Application.Interfaces;
-using ConsultaAlumnosClean.Application.Models;
-using ConsultaAlumnosClean.Domain.Entities;
+using ConsultaAlumnos.Application.Interfaces;
+using ConsultaAlumnos.Application.Models;
+using ConsultaAlumnos.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace ConsultaAlumnosClean.Web.Controllers;
+namespace ConsultaAlumnos.Web.Controllers;
 
 [Route("api/student")]
 [ApiController]
@@ -18,7 +18,7 @@ public class StudentController : ControllerBase
 
     public StudentController(IStudentService studentService)
     {
-        this._studentService = studentService;
+        _studentService = studentService;
     }
     [HttpGet("subjects")]
     public ActionResult<ICollection<SubjectDto>> GetSubjects()

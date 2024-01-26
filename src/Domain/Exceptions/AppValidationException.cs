@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsultaAlumnosClean.Domain.Exceptions
+namespace ConsultaAlumnos.Domain.Exceptions
 {
     //Exception thrown by Application layer. Mostly bussiness rules validations or data type format validation.
     public class AppValidationException : Exception

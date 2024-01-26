@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ConsultaAlumnosClean.Domain.Entities
+namespace ConsultaAlumnos.Domain.Entities
 {
     public abstract class User
     {

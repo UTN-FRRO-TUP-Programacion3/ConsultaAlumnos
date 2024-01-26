@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsultaAlumnosClean.Domain.Exceptions
+namespace ConsultaAlumnos.Domain.Exceptions
 {
     public class NotAllowedException : Exception
     {

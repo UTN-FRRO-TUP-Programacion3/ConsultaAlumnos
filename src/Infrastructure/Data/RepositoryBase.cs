@@ -1,8 +1,7 @@
-﻿using ConsultaAlumnosClean.Domain.Exceptions;
-using ConsultaAlumnosClean.Domain.Interfaces;
+﻿using ConsultaAlumnos.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace ConsultaAlumnosClean.Infrastructure.Data;
+namespace ConsultaAlumnos.Infrastructure.Data;
 
 
 public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
@@ -12,7 +11,7 @@ public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     public RepositoryBase(DbContext dbContext)
     {
         _dbContext = dbContext;
-        
+
     }
     public virtual async Task<T?> GetByIdAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull
     {

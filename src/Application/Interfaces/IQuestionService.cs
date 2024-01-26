@@ -1,10 +1,8 @@
-﻿
+﻿using ConsultaAlumnos.Application.Models;
+using ConsultaAlumnos.Application.Models.Requests;
+using ConsultaAlumnos.Domain.Enums;
 
-using ConsultaAlumnosClean.Application.Models;
-using ConsultaAlumnosClean.Application.Models.Requests;
-using ConsultaAlumnosClean.Domain.Enums;
-
-namespace ConsultaAlumnosClean.Application.Interfaces;
+namespace ConsultaAlumnos.Application.Interfaces;
 
 public interface IQuestionService
 {

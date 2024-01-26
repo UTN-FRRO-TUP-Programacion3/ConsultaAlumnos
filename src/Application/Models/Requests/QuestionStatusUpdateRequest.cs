@@ -1,6 +1,6 @@
-﻿using ConsultaAlumnosClean.Domain.Enums;
+﻿using ConsultaAlumnos.Domain.Enums;
 
-namespace ConsultaAlumnosClean.Application.Models.Requests
+namespace ConsultaAlumnos.Application.Models.Requests
 {
     public class QuestionStatusUpdateRequest
     {

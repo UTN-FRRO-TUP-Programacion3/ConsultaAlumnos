@@ -1,10 +1,6 @@
-﻿using ConsultaAlumnosClean.Domain.Entities;
-using ConsultaAlumnosClean.Domain.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ConsultaAlumnos.Domain.Entities;
+using ConsultaAlumnos.Domain.Enums;
+using ConsultaAlumnos.Domain.Exceptions;
 
 namespace Domain.UnitTests
 {
@@ -19,7 +15,7 @@ namespace Domain.UnitTests
             //question.Student.Id = 1;
             question.AssignedProfessor = new Professor() { Id = 2 };
             //question.AssignedProfessor.Id = 2;
-            question.ChangeQuestionStatus(ConsultaAlumnosClean.Domain.Enums.QuestionState.WaitingStudentAnwser, 1);
+            question.ChangeQuestionStatus(QuestionState.WaitingStudentAnwser, 1);
 
             Response response = new Response(
                 new Professor() { Id = 2 },
@@ -54,7 +50,7 @@ namespace Domain.UnitTests
             Question question = new Question();
             question.Student = new Student() { Id = 1 };
             question.AssignedProfessor = new Professor() { Id = 2 };
-            question.ChangeQuestionStatus(ConsultaAlumnosClean.Domain.Enums.QuestionState.WaitingStudentAnwser, 1);
+            question.ChangeQuestionStatus(QuestionState.WaitingStudentAnwser, 1);
 
             Response response = new Response(
                 new Student() { Id = 3 },

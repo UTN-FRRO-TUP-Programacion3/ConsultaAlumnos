@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using ConsultaAlumnosClean.Application.Models;
+using ConsultaAlumnos.Application.Models;
+using ConsultaAlumnos.Domain.Entities;
 
-
-namespace ConsultaAlumnosClean.Application.Profiles;
+namespace ConsultaAlumnos.Application.Profiles;
 
 public class SubjectProfile : Profile
 {
     public SubjectProfile()
     {
-        CreateMap<ConsultaAlumnosClean.Domain.Entities.Subject, SubjectDto>();
+        CreateMap<Subject, SubjectDto>();
     }
 }

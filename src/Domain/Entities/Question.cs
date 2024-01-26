@@ -1,9 +1,8 @@
-﻿using ConsultaAlumnosClean.Domain.Enums;
-using ConsultaAlumnosClean.Domain.Exceptions;
-using System.ComponentModel.DataAnnotations;
+﻿using ConsultaAlumnos.Domain.Enums;
+using ConsultaAlumnos.Domain.Exceptions;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ConsultaAlumnosClean.Domain.Entities
+namespace ConsultaAlumnos.Domain.Entities
 {
     public class Question
     {
@@ -14,13 +13,13 @@ namespace ConsultaAlumnosClean.Domain.Entities
 
         [Column(TypeName = "nvarchar(4000)")]
         public string Description { get; set; } = string.Empty;
-        
+
         public int ProfessorId { get; set; }
-        
+
         public int CreatorStudentId { get; set; }
-        
+
         public int SubjectId { get; set; }
-      
+
         [Column(TypeName = "datetime")]
         public DateTime CreationDate { get; private set; } = DateTime.Now;
 
@@ -46,12 +45,12 @@ namespace ConsultaAlumnosClean.Domain.Entities
         public void AddResponse(Response response)
         {
             //Validations
-            if(response.Creator.Id != AssignedProfessor.Id && response.Creator.Id != Student.Id)
+            if (response.Creator.Id != AssignedProfessor.Id && response.Creator.Id != Student.Id)
             {
                 throw new NotAllowedException("Response creator is not allowed to add reponses to this question");
             }
-            
-            if(QuestionState == QuestionState.WaitingProfessorAnwser && response.Creator.Id != AssignedProfessor.Id)
+
+            if (QuestionState == QuestionState.WaitingProfessorAnwser && response.Creator.Id != AssignedProfessor.Id)
             {
                 throw new AppValidationException("Action not allowed becouse waiting for Professor answer");
             }
@@ -61,7 +60,7 @@ namespace ConsultaAlumnosClean.Domain.Entities
                 throw new AppValidationException("Action not allowed becouse waiting for Student answer");
             }
 
-            if (QuestionState == QuestionState.Canceled )
+            if (QuestionState == QuestionState.Canceled)
             {
                 throw new AppValidationException("Action not allowed becouse the answer in Canceled");
             }
@@ -76,15 +75,15 @@ namespace ConsultaAlumnosClean.Domain.Entities
                 throw new ApplicationException("Response message can not be empty");
             }
 
-            
+
             QuestionState newQuestionState = response.Creator.Id == AssignedProfessor.Id ? QuestionState.WaitingStudentAnwser : QuestionState.WaitingProfessorAnwser;
 
             Responses.Add(response);
-            this.QuestionState = newQuestionState;
-            this.LastModificationDate = DateTime.Now;
+            QuestionState = newQuestionState;
+            LastModificationDate = DateTime.Now;
         }
 
-        public void ChangeQuestionStatus(QuestionState questionState,int userId)
+        public void ChangeQuestionStatus(QuestionState questionState, int userId)
         {
             //Validations
             if (AssignedProfessor.Id != userId && Student.Id != userId)
@@ -92,13 +91,13 @@ namespace ConsultaAlumnosClean.Domain.Entities
                 throw new Exception("User not allowed to modify this question");
             }
 
-            if (this.QuestionState == questionState)
+            if (QuestionState == questionState)
             {
                 throw new Exception("The question has it State already");
             }
 
-            this.QuestionState = questionState;
-            this.LastModificationDate = DateTime.Now;
+            QuestionState = questionState;
+            LastModificationDate = DateTime.Now;
 
         }
 

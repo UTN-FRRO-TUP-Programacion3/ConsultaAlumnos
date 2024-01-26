@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ConsultaAlumnosClean.Domain.Entities
+namespace ConsultaAlumnos.Domain.Entities
 {
     public class Response
     {
@@ -18,7 +18,7 @@ namespace ConsultaAlumnosClean.Domain.Entities
         public Question Question { get; set; }
         public int QuestionId { get; set; }
 
-        public Response(User creator,string message)
+        public Response(User creator, string message)
         {
             Message = message;
             Creator = creator;
@@ -28,7 +28,7 @@ namespace ConsultaAlumnosClean.Domain.Entities
         //EF Core cannot set navigation properties (such as Creator) using a constructor.
         public Response()
         {
-            
+
         }
     }
 }

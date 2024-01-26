@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsultaAlumnosClean.Infrastructure.Data;
+namespace ConsultaAlumnos.Infrastructure.Data;
 
 public class EfRepository<T> : RepositoryBase<T> where T : class
 {

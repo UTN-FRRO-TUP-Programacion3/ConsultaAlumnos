@@ -1,12 +1,11 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ConsultaAlumnosClean.Domain.Entities
+namespace ConsultaAlumnos.Domain.Entities
 {
     public class Subject
     {
-    
+
         public int Id { get; set; }
 
         [Column(TypeName = "nvarchar(100)")]

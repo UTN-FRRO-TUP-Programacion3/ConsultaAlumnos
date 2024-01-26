@@ -1,9 +1,7 @@
-﻿
-
-using ConsultaAlumnosClean.Application.Interfaces;
+﻿using ConsultaAlumnos.Application.Interfaces;
 using Microsoft.Extensions.Configuration;
 
-namespace ConsultaAlumnosClean.Infrastructure.Services
+namespace ConsultaAlumnos.Infrastructure.Services
 {
     public class CloudMailService : IMailService
     {

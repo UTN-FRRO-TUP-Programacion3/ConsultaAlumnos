@@ -1,16 +1,16 @@
-using ConsultaAlumnosClean.Application.Interfaces;
-using ConsultaAlumnosClean.Application.Services;
-using ConsultaAlumnosClean.Domain.Entities;
-using ConsultaAlumnosClean.Domain.Interfaces;
-using ConsultaAlumnosClean.Infrastructure.Data;
-using ConsultaAlumnosClean.Infrastructure.Services;
+using ConsultaAlumnos.Application.Interfaces;
+using ConsultaAlumnos.Application.Services;
+using ConsultaAlumnos.Domain.Entities;
+using ConsultaAlumnos.Domain.Interfaces;
+using ConsultaAlumnos.Infrastructure.Data;
+using ConsultaAlumnos.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text;
-using static ConsultaAlumnosClean.Infrastructure.Services.AutenticacionService;
+using static ConsultaAlumnos.Infrastructure.Services.AutenticacionService;
 
 var builder = WebApplication.CreateBuilder(args);
 

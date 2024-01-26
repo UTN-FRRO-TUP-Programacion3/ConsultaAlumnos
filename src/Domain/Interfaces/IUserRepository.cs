@@ -1,8 +1,6 @@
-﻿
+﻿using ConsultaAlumnos.Domain.Entities;
 
-using ConsultaAlumnosClean.Domain.Entities;
-
-namespace ConsultaAlumnosClean.Domain.Interfaces;
+namespace ConsultaAlumnos.Domain.Interfaces;
 
 public interface IUserRepository : IRepositoryBase<User>
 {

@@ -1,17 +1,15 @@
 ﻿
 
 using AutoMapper;
-using ConsultaAlumnosClean.Application.Interfaces;
-using ConsultaAlumnosClean.Application.Models;
-using ConsultaAlumnosClean.Application.Models.Requests;
-using ConsultaAlumnosClean.Domain.Entities;
-using ConsultaAlumnosClean.Domain.Enums;
-using ConsultaAlumnosClean.Domain.Exceptions;
-using ConsultaAlumnosClean.Domain.Interfaces;
-using System.Reflection.Metadata.Ecma335;
-using System.Security.Claims;
+using ConsultaAlumnos.Application.Interfaces;
+using ConsultaAlumnos.Application.Models;
+using ConsultaAlumnos.Application.Models.Requests;
+using ConsultaAlumnos.Domain.Entities;
+using ConsultaAlumnos.Domain.Enums;
+using ConsultaAlumnos.Domain.Exceptions;
+using ConsultaAlumnos.Domain.Interfaces;
 
-namespace ConsultaAlumnosClean.Application.Services;
+namespace ConsultaAlumnos.Application.Services;
 
 public class QuestionService : IQuestionService
 {
@@ -20,7 +18,7 @@ public class QuestionService : IQuestionService
     private readonly IMailService _mailService;
     private readonly IStudentRepository _studentRepository;
     private readonly IRepositoryBase<Professor> _professorRepository;
-    
+
 
     public QuestionService(IMapper mapper,
         IQuestionRepository questionRepository,
@@ -65,7 +63,7 @@ public class QuestionService : IQuestionService
         return _questionRepository.IsQuestionIdValid(questionId);
     }
 
-    public void ChangeQuestionStatus(int questionId, QuestionState newStatus,int userId)
+    public void ChangeQuestionStatus(int questionId, QuestionState newStatus, int userId)
     {
         var question = _questionRepository.GetByIdAsync(questionId).Result
             ?? throw new Exception("Question not found");

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace ConsultaAlumnosClean.Web.Controllers;
+namespace ConsultaAlumnos.Web.Controllers;
 
 [Route("api/subject")]
 [ApiController]

@@ -1,4 +1,4 @@
-﻿namespace ConsultaAlumnosClean.Application.Models;
+﻿namespace ConsultaAlumnos.Application.Models;
 
 
 public class SubjectDto

@@ -1,10 +1,10 @@
-﻿using ConsultaAlumnosClean.Domain.Entities;
-using ConsultaAlumnosClean.Domain.Enums;
-using ConsultaAlumnosClean.Domain.Interfaces;
+﻿using ConsultaAlumnos.Domain.Entities;
+using ConsultaAlumnos.Domain.Enums;
+using ConsultaAlumnos.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 
-namespace ConsultaAlumnosClean.Infrastructure.Data;
+namespace ConsultaAlumnos.Infrastructure.Data;
 
 public class QuestionRepository : EfRepository<Question>, IQuestionRepository
 {
@@ -17,7 +17,7 @@ public class QuestionRepository : EfRepository<Question>, IQuestionRepository
         return await _context.Questions
             .Include(q => q.AssignedProfessor)
             .Include(q => q.Student)
-            .SingleOrDefaultAsync(c => c.Id == id,cancellationToken);
+            .SingleOrDefaultAsync(c => c.Id == id, cancellationToken);
     }
 
     public bool IsQuestionIdValid(int questionId)

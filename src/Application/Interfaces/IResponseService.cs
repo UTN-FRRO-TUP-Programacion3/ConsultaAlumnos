@@ -1,7 +1,7 @@
-﻿using ConsultaAlumnosClean.Application.Models;
-using ConsultaAlumnosClean.Application.Models.Requests;
+﻿using ConsultaAlumnos.Application.Models;
+using ConsultaAlumnos.Application.Models.Requests;
 
-namespace ConsultaAlumnosClean.Application.Interfaces;
+namespace ConsultaAlumnos.Application.Interfaces;
 
 public interface IResponseService
 {

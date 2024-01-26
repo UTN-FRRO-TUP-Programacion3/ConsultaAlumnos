@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using ConsultaAlumnosClean.Application.Models;
-using ConsultaAlumnosClean.Domain.Entities;
+using ConsultaAlumnos.Application.Models;
+using ConsultaAlumnos.Domain.Entities;
 
-namespace ConsultaAlumnosClean.Application.Profiles;
+namespace ConsultaAlumnos.Application.Profiles;
 
 public class StudentProfile : Profile
 {

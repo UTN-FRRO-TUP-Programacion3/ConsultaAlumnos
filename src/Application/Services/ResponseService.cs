@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using ConsultaAlumnosClean.Application.Interfaces;
-using ConsultaAlumnosClean.Application.Models;
-using ConsultaAlumnosClean.Application.Models.Requests;
-using ConsultaAlumnosClean.Domain.Entities;
-using ConsultaAlumnosClean.Domain.Interfaces;
+using ConsultaAlumnos.Application.Interfaces;
+using ConsultaAlumnos.Application.Models;
+using ConsultaAlumnos.Application.Models.Requests;
+using ConsultaAlumnos.Domain.Entities;
+using ConsultaAlumnos.Domain.Interfaces;
 using System.Runtime.CompilerServices;
 
 
-namespace ConsultaAlumnosClean.Application.Services;
+namespace ConsultaAlumnos.Application.Services;
 
 public class ResponseService : IResponseService
 {
@@ -29,7 +29,7 @@ public class ResponseService : IResponseService
         response.CreatorId = userId;
 
         Question? question = _questionRepository.GetByIdAsync(questionId).Result
-            ?? throw(new Exception("Question not found"));
+            ?? throw (new Exception("Question not found"));
 
         question.AddResponse(response);
 

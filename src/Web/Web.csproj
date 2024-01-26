@@ -6,8 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>false</InvariantGlobalization>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <RootNamespace>ConsultaAlumnosClean.Web</RootNamespace>
-    <AssemblyName>ConsultaAlumnosClean.Web</AssemblyName>
+    <RootNamespace>ConsultaAlumnos.Web</RootNamespace>
+    <AssemblyName>ConsultaAlumnos.Web</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

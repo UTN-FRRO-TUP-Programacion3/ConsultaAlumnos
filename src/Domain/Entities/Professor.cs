@@ -1,6 +1,4 @@
-﻿
-
-namespace ConsultaAlumnosClean.Domain.Entities
+﻿namespace ConsultaAlumnos.Domain.Entities
 {
     public class Professor : User
     {

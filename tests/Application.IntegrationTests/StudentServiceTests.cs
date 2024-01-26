@@ -1,15 +1,6 @@
-﻿using AutoMapper;
-using ConsultaAlumnosClean.Application.Models;
-using ConsultaAlumnosClean.Application.Profiles;
-using ConsultaAlumnosClean.Application.Services;
-using ConsultaAlumnosClean.Domain.Entities;
-using ConsultaAlumnosClean.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ConsultaAlumnos.Application.Models;
+using ConsultaAlumnos.Application.Services;
+using ConsultaAlumnos.Infrastructure.Data;
 
 namespace Application.IntegrationTests
 {

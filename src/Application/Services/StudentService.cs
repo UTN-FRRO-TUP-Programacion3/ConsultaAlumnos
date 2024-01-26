@@ -1,11 +1,11 @@
 ﻿
 
 using AutoMapper;
-using ConsultaAlumnosClean.Application.Interfaces;
-using ConsultaAlumnosClean.Application.Models;
-using ConsultaAlumnosClean.Domain.Interfaces;
+using ConsultaAlumnos.Application.Interfaces;
+using ConsultaAlumnos.Application.Models;
+using ConsultaAlumnos.Domain.Interfaces;
 
-namespace ConsultaAlumnosClean.Application.Services;
+namespace ConsultaAlumnos.Application.Services;
 
 public class StudentService : IStudentService
 {

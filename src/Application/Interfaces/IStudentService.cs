@@ -1,8 +1,6 @@
-﻿
+﻿using ConsultaAlumnos.Application.Models;
 
-using ConsultaAlumnosClean.Application.Models;
-
-namespace ConsultaAlumnosClean.Application.Interfaces
+namespace ConsultaAlumnos.Application.Interfaces
 {
     public interface IStudentService
     {

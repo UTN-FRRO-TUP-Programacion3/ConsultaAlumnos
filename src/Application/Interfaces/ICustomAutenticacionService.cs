@@ -1,9 +1,6 @@
-﻿
+﻿using ConsultaAlumnos.Application.Models.Requests;
 
-using ConsultaAlumnosClean.Application.Models.Requests;
-using ConsultaAlumnosClean.Domain.Entities;
-
-namespace ConsultaAlumnosClean.Application.Interfaces;
+namespace ConsultaAlumnos.Application.Interfaces;
 
 public interface ICustomAuthenticationService
 {

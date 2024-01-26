@@ -1,18 +1,15 @@
-﻿
-
-using ConsultaAlumnosClean.Application.Interfaces;
-using ConsultaAlumnosClean.Application.Models.Requests;
-using ConsultaAlumnosClean.Domain.Entities;
-using ConsultaAlumnosClean.Domain.Exceptions;
-using ConsultaAlumnosClean.Domain.Interfaces;
-using Microsoft.EntityFrameworkCore;
+﻿using ConsultaAlumnos.Application.Interfaces;
+using ConsultaAlumnos.Application.Models.Requests;
+using ConsultaAlumnos.Domain.Entities;
+using ConsultaAlumnos.Domain.Exceptions;
+using ConsultaAlumnos.Domain.Interfaces;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace ConsultaAlumnosClean.Infrastructure.Services
+namespace ConsultaAlumnos.Infrastructure.Services
 {
     public class AutenticacionService : ICustomAuthenticationService
     {
@@ -34,11 +31,11 @@ namespace ConsultaAlumnosClean.Infrastructure.Services
 
             if (user == null) return null;
 
-            if (authenticationRequest.UserType == typeof(Student).Name || authenticationRequest.UserType == typeof(Professor).Name )
+            if (authenticationRequest.UserType == typeof(Student).Name || authenticationRequest.UserType == typeof(Professor).Name)
             {
                 if (user.UserType == authenticationRequest.UserType && user.Password == authenticationRequest.Password) return user;
             }
-            
+
             return null;
 
         }
@@ -86,7 +83,7 @@ namespace ConsultaAlumnosClean.Infrastructure.Services
         {
             public const string AutenticacionService = "AutenticacionService";
 
-            public string  Issuer { get; set; }
+            public string Issuer { get; set; }
             public string Audience { get; set; }
             public string SecretForKey { get; set; }
         }

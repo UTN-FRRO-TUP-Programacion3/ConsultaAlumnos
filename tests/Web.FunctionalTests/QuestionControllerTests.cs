@@ -7,7 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using ConsultaAlumnosClean.Application.Models;
+using ConsultaAlumnos.Application.Models;
 
 namespace Web.FunctionalTests
 {

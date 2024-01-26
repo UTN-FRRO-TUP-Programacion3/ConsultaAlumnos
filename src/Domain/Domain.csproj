@@ -4,8 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>ConsultaAlumnosClean.Domain</RootNamespace>
-    <AssemblyName>ConsultaAlumnosClean.Domain</AssemblyName>
+    <RootNamespace>ConsultaAlumnos.Domain</RootNamespace>
+    <AssemblyName>ConsultaAlumnos.Domain</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

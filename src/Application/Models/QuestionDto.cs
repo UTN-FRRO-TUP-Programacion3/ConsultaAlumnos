@@ -1,8 +1,6 @@
-﻿
+﻿using ConsultaAlumnos.Domain.Enums;
 
-using ConsultaAlumnosClean.Domain.Enums;
-
-namespace ConsultaAlumnosClean.Application.Models
+namespace ConsultaAlumnos.Application.Models
 {
     public class QuestionDto
     {

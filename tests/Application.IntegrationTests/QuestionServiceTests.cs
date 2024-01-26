@@ -1,20 +1,11 @@
-﻿using AutoMapper;
-using ConsultaAlumnosClean.Application.Models.Requests;
-using ConsultaAlumnosClean.Application.Models;
-using ConsultaAlumnosClean.Application.Services;
-using ConsultaAlumnosClean.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ConsultaAlumnosClean.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
-using ConsultaAlumnosClean.Infrastructure.Services;
-using ConsultaAlumnosClean.Application.Interfaces;
-using Moq;
-using ConsultaAlumnosClean.Domain.Enums;
-using ConsultaAlumnosClean.Application.Profiles;
+﻿using Moq;
+using ConsultaAlumnos.Infrastructure.Data;
+using ConsultaAlumnos.Domain.Enums;
+using ConsultaAlumnos.Domain.Entities;
+using ConsultaAlumnos.Application.Models;
+using ConsultaAlumnos.Application.Models.Requests;
+using ConsultaAlumnos.Application.Interfaces;
+using ConsultaAlumnos.Application.Services;
 
 namespace Application.IntegrationTests
 {

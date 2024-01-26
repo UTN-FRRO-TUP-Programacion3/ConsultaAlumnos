@@ -1,5 +1,5 @@
 ﻿
-using ConsultaAlumnosClean.Infrastructure.Data;
+using ConsultaAlumnos.Infrastructure.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;

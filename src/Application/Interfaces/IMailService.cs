@@ -1,4 +1,4 @@
-﻿namespace ConsultaAlumnosClean.Application.Interfaces;
+﻿namespace ConsultaAlumnos.Application.Interfaces;
 
 public interface IMailService
 {

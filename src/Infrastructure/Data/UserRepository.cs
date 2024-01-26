@@ -1,8 +1,7 @@
-﻿using ConsultaAlumnosClean.Application.Models.Requests;
-using ConsultaAlumnosClean.Domain.Entities;
-using ConsultaAlumnosClean.Domain.Interfaces;
+﻿using ConsultaAlumnos.Domain.Entities;
+using ConsultaAlumnos.Domain.Interfaces;
 
-namespace ConsultaAlumnosClean.Infrastructure.Data;
+namespace ConsultaAlumnos.Infrastructure.Data;
 
 public class UserRepository : EfRepository<User>, IUserRepository
 {

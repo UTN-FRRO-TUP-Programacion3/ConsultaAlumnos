@@ -1,8 +1,4 @@
-﻿
-
-using ConsultaAlumnosClean.Domain.Entities;
-
-namespace ConsultaAlumnosClean.Application.Models
+﻿namespace ConsultaAlumnos.Application.Models
 {
     public class ResponseDto
     {

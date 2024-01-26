@@ -1,9 +1,9 @@
-﻿using ConsultaAlumnosClean.Domain.Entities;
+﻿using ConsultaAlumnos.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Reflection.Emit;
-namespace ConsultaAlumnosClean.Infrastructure.Data;
+namespace ConsultaAlumnos.Infrastructure.Data;
 
 /// <summary>
 /// One convention of Code First is implicit key properties; Code First will look for a property named “Id”, or a combination of class name and “Id”, such as “BlogId”. This property will map to a primary key column in the database.
@@ -150,15 +150,15 @@ public class ApplicationDbContext : DbContext
                 Password = "123456",
                 Id = 4
             },
-            new Professor
-            {
-                LastName = "Paez",
-                Name = "Pablo",
-                Email = "ppaez@gmail.com",
-                UserName = "ppaez",
-                Password = "123456",
-                Id = 5
-            }];
+                new Professor
+                {
+                    LastName = "Paez",
+                    Name = "Pablo",
+                    Email = "ppaez@gmail.com",
+                    UserName = "ppaez",
+                    Password = "123456",
+                    Id = 5
+                }];
         }
 
         return result;
@@ -203,9 +203,9 @@ public class ApplicationDbContext : DbContext
         return result;
     }
 
-    private Object[] CreateStudentsSubjectsAttendeDataSeed()
+    private object[] CreateStudentsSubjectsAttendeDataSeed()
     {
-        Object[] result;
+        object[] result;
 
         if (isTestingEnvironment)
         {
@@ -226,9 +226,9 @@ public class ApplicationDbContext : DbContext
         return result;
     }
 
-    private Object[] CreateProfessorSubjectDataSeed()
+    private object[] CreateProfessorSubjectDataSeed()
     {
-        Object[] result;
+        object[] result;
 
         if (isTestingEnvironment)
         {
@@ -250,5 +250,5 @@ public class ApplicationDbContext : DbContext
         return result;
     }
 
-    
+
 }
