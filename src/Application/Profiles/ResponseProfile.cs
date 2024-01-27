@@ -9,7 +9,6 @@ public class ResponseProfile : Profile
 {
     public ResponseProfile()
     {
-        CreateMap<ResponseCreateRequest, Response>();
         CreateMap<Response, ResponseDto>();
     }
 }

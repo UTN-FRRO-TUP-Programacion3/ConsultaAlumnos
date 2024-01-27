@@ -2,6 +2,7 @@
 using ConsultaAlumnos.Application.Interfaces;
 using ConsultaAlumnos.Application.Models;
 using ConsultaAlumnos.Application.Models.Requests;
+using ConsultaAlumnos.Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -53,12 +54,26 @@ public class QuestionController : ControllerBase
     }
 
     [HttpPut("{questionId}/changestatus")]
-    public ActionResult<QuestionDto> ChangeQuestionStatus(int questionId, QuestionStatusUpdateRequest newStatus)
+    public ActionResult<QuestionDto> ChangeQuestionStatus(int questionId, QuestionStatusUpdateRequest questionStatusUpdateRequest)
     {
         int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
 
-        _questionService.ChangeQuestionStatus(questionId, newStatus.Status, userId);
+        _questionService.ChangeQuestionStatus(questionId, questionStatusUpdateRequest.Status, userId);
 
         return NoContent();
+    }
+
+    [HttpPost("{questionId}/CreateResponse")]
+    public IActionResult CreateResponse(int questionId,ResponseCreateRequest responseCreateRequest)
+    {
+
+        int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
+
+        var newResponse = _questionService.CreateResponse(responseCreateRequest, questionId, userId);
+
+        return CreatedAtRoute(
+            "GetResponse",
+            new { questionId, responseId = newResponse.Id },
+            newResponse);
     }
 }

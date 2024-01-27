@@ -75,13 +75,13 @@ namespace ConsultaAlumnos.Infrastructure.Data.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "nvarchar(256)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(4000)", nullable: false),
-                    ProfessorId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CreatorStudentId = table.Column<int>(type: "INTEGER", nullable: false),
-                    SubjectId = table.Column<int>(type: "INTEGER", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime", nullable: true),
                     LastModificationDate = table.Column<DateTime>(type: "datetime", nullable: true),
-                    QuestionState = table.Column<int>(type: "INTEGER", nullable: false)
+                    QuestionState = table.Column<int>(type: "INTEGER", nullable: false),
+                    AssignedProfessorId = table.Column<int>(type: "INTEGER", nullable: false),
+                    StudentId = table.Column<int>(type: "INTEGER", nullable: false),
+                    SubjectId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -92,13 +92,13 @@ namespace ConsultaAlumnos.Infrastructure.Data.Migrations
                         principalTable: "Subjects",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Questions_Users_CreatorStudentId",
-                        column: x => x.CreatorStudentId,
+                        name: "FK_Questions_Users_AssignedProfessorId",
+                        column: x => x.AssignedProfessorId,
                         principalTable: "Users",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Questions_Users_ProfessorId",
-                        column: x => x.ProfessorId,
+                        name: "FK_Questions_Users_StudentId",
+                        column: x => x.StudentId,
                         principalTable: "Users",
                         principalColumn: "Id");
                 });
@@ -132,6 +132,7 @@ namespace ConsultaAlumnos.Infrastructure.Data.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Message = table.Column<string>(type: "nvarchar(4000)", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime", nullable: false),
                     CreatorId = table.Column<int>(type: "INTEGER", nullable: false),
                     QuestionId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
@@ -196,14 +197,14 @@ namespace ConsultaAlumnos.Infrastructure.Data.Migrations
                 column: "SubjectsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Questions_CreatorStudentId",
+                name: "IX_Questions_AssignedProfessorId",
                 table: "Questions",
-                column: "CreatorStudentId");
+                column: "AssignedProfessorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Questions_ProfessorId",
+                name: "IX_Questions_StudentId",
                 table: "Questions",
-                column: "ProfessorId");
+                column: "StudentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Questions_SubjectId",

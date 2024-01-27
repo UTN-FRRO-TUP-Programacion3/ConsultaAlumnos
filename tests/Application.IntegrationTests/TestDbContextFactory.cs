@@ -21,8 +21,11 @@ namespace Application.IntegrationTests
 
         public static ApplicationDbContext CreateTestApplicationDbContextWithSQLiteDatabase()
         {
-            var id = Guid.NewGuid().ToString();
-            string strDatabasePath = $"Data Source = ConsultaAlumnosTestint-{id}.db";
+            //To run test in parallel
+            //var id = Guid.NewGuid().ToString();
+            //string strDatabasePath = $"Data Source = ConsultaAlumnosTestint-{id}.db";
+
+            string strDatabasePath = $"Data Source = ConsultaAlumnosTestint.db";
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseSqlite(strDatabasePath).Options;

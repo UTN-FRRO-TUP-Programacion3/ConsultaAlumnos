@@ -57,6 +57,15 @@ public class ApplicationDbContext : DbContext
                 .HasData(CreateProfessorSubjectDataSeed()
                 ));
 
+        if (isTestingEnvironment)
+        { 
+            modelBuilder.Entity<Question>().HasData(CreateQuestionDataSeed());
+        }
+
+        if (isTestingEnvironment)
+        {
+            modelBuilder.Entity<Response>().HasData(CreateResponseDataSeed());
+        }
 
         base.OnModelCreating(modelBuilder);
 
@@ -250,5 +259,75 @@ public class ApplicationDbContext : DbContext
         return result;
     }
 
+    private object[] CreateQuestionDataSeed()
+    {
+        object[] result;
+
+        if (isTestingEnvironment)
+        {
+            result =
+            [
+                new
+                {
+                    Id = 1,
+                    Title = "Question Title 1 for testing",
+                    Description = "Question Description 1 for testing",
+                    CreationDate = DateTime.Now,
+                    EndDate = DateTime.Now,
+                    LastModificationDate = DateTime.Now,
+                    QuestionState = Domain.Enums.QuestionState.WaitingProfessorAnwser,
+                    AssignedProfessorId = 5,
+                    StudentId = 1,
+                    SubjectId = 1
+                },
+                new
+                {
+                    Id = 2,
+                    Title = "Question Title 2 for testing",
+                    Description = "Question Description 2 for testing",
+                    CreationDate = DateTime.Now,
+                    EndDate = DateTime.Now,
+                    LastModificationDate = DateTime.Now,
+                    QuestionState = Domain.Enums.QuestionState.WaitingProfessorAnwser,
+                    AssignedProfessorId = 5,
+                    StudentId = 1,
+                    SubjectId = 1
+                }
+            ];
+        }
+        else
+        {
+            result = [];
+        }
+
+        return result;
+    }
+
+
+    private object[] CreateResponseDataSeed()
+    {
+        object[] result;
+
+        if (isTestingEnvironment)
+        {
+            result =
+            [
+                new
+                {
+                    Id = 1,
+                    Message = "Response message testing",
+                    CreationDate = DateTime.Now,
+                    CreatorId = 5,
+                    QuestionId = 1
+                }
+            ];
+        }
+        else
+        {
+            result = [];
+        }
+
+        return result;
+    }
 
 }

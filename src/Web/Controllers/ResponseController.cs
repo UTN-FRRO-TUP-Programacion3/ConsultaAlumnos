@@ -32,17 +32,5 @@ public class ResponseController : ControllerBase
         return Ok(response);
     }
 
-    [HttpPost]
-    public IActionResult CreateResponse(int questionId, ResponseCreateRequest responseCreateRequest)
-    {
-
-        int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
-
-        var newResponse = _responseService.CreateResponse(responseCreateRequest, questionId, userId);
-
-        return CreatedAtRoute(
-            "GetResponse",
-            new { questionId, responseId = newResponse.Id },
-            newResponse);
-    }
+    
 }

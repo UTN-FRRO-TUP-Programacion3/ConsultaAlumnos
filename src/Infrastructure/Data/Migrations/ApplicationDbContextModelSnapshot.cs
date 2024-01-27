@@ -23,11 +23,11 @@ namespace ConsultaAlumnos.Infrastructure.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("AssignedProfessorId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime");
-
-                    b.Property<int>("CreatorStudentId")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -39,10 +39,10 @@ namespace ConsultaAlumnos.Infrastructure.Data.Migrations
                     b.Property<DateTime?>("LastModificationDate")
                         .HasColumnType("datetime");
 
-                    b.Property<int>("ProfessorId")
+                    b.Property<int>("QuestionState")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("QuestionState")
+                    b.Property<int>("StudentId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("SubjectId")
@@ -54,9 +54,9 @@ namespace ConsultaAlumnos.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatorStudentId");
+                    b.HasIndex("AssignedProfessorId");
 
-                    b.HasIndex("ProfessorId");
+                    b.HasIndex("StudentId");
 
                     b.HasIndex("SubjectId");
 
@@ -68,6 +68,9 @@ namespace ConsultaAlumnos.Infrastructure.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime");
 
                     b.Property<int>("CreatorId")
                         .HasColumnType("INTEGER");
@@ -285,15 +288,15 @@ namespace ConsultaAlumnos.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("ConsultaAlumnos.Domain.Entities.Question", b =>
                 {
-                    b.HasOne("ConsultaAlumnos.Domain.Entities.Student", "Student")
+                    b.HasOne("ConsultaAlumnos.Domain.Entities.Professor", "AssignedProfessor")
                         .WithMany("Questions")
-                        .HasForeignKey("CreatorStudentId")
+                        .HasForeignKey("AssignedProfessorId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("ConsultaAlumnos.Domain.Entities.Professor", "AssignedProfessor")
+                    b.HasOne("ConsultaAlumnos.Domain.Entities.Student", "Student")
                         .WithMany("Questions")
-                        .HasForeignKey("ProfessorId")
+                        .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 

@@ -11,7 +11,7 @@ namespace Application.IntegrationTests
             //    cfg.AddProfile<StudentProfile>();
             //    cfg.AddProfile<QuestionProfile>();
             //});
-            var configuration = new MapperConfiguration(cfg => cfg.AddMaps(["ConsultaAlumnosClean.Application"]));
+            var configuration = new MapperConfiguration(cfg => cfg.AddMaps(["ConsultaAlumnos.Application"]));
 
             var mapper = configuration.CreateMapper();
 

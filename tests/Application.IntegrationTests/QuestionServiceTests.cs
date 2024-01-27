@@ -27,7 +27,11 @@ namespace Application.IntegrationTests
 
             var professorRepository = new EfRepository<Professor>(context);
 
-            var service = new QuestionService(mapper, questionRepository, mailService, studentRepository, professorRepository);
+            var userRepository = new UserRepository(context);
+
+            var subjectRepository = new EfRepository<Subject>(context);
+
+            var service = new QuestionService(mapper, questionRepository, mailService, studentRepository, professorRepository,userRepository,subjectRepository);
 
             //Act
             QuestionCreateRequest questionCreateRequest = new()
@@ -44,11 +48,65 @@ namespace Application.IntegrationTests
             //Assert
             Assert.IsType<QuestionDto>(result);
             Assert.Equal(questionCreateRequest.Title, result.Title);
-            Assert.Equal(questionCreateRequest.ProfessorId, result.ProfessorId);
+            //Assert.Equal(questionCreateRequest.ProfessorId, result.ProfessorId);
             Assert.Equal(questionCreateRequest.Description, result.Description);
-            Assert.Equal(questionCreateRequest.SubjectId, result.SubjectId);
+            //Assert.Equal(questionCreateRequest.SubjectId, result.SubjectId);
             Assert.Equal(QuestionState.WaitingProfessorAnwser, result.QuestionState);
 
+        }
+
+
+        [Fact]
+        public void getQuestionById_ReturnsQuestionGivenAValidId()
+        {
+            //Arrange
+            var mapper = TestMapperFactory.CreateMapper();
+
+            ApplicationDbContext context = TestDbContextFactory.CreateTestApplicationDbContextWithInMemoryDatabase();
+
+            QuestionRepository questionRepository = new(context);
+
+            var service = new QuestionService(mapper, questionRepository,null, null, null, null, null);
+
+            //Act
+            var result = service.GetQuestion(1);
+
+            //Assert
+            Assert.NotNull(result);
+            Assert.IsType<QuestionDto>(result);
+        }
+
+
+        [Fact]
+        public void CreateResponseAndReturnItFromDatabase()
+        {
+            //Arrange
+            var mapper = TestMapperFactory.CreateMapper();
+
+            ApplicationDbContext context = TestDbContextFactory.CreateTestApplicationDbContextWithInMemoryDatabase();
+
+            QuestionRepository questionRepository = new(context);
+            var userRepository = new UserRepository(context);
+
+            var service = new QuestionService(mapper, questionRepository, null, null, null, userRepository, null);
+
+            ResponseCreateRequest responseCreateRequest = new ResponseCreateRequest()
+            {
+                Message = "Response message created during testing"
+            };
+
+            //Act
+            service.CreateResponse(responseCreateRequest,2,5);
+
+            var result = service.GetResponse(2, 2);
+
+            //Assert
+            Assert.NotNull(result);
+            Assert.IsType<ResponseDto>(result);
+            Assert.NotNull(result.Creator);
+            Assert.IsType<UserDto>(result.Creator);
+            Assert.True(result.CreationDate >= DateTime.Now.AddMinutes(-60));
+            Assert.True(result.CreationDate < DateTime.Now);
         }
 
     }

@@ -9,7 +9,6 @@ public class QuestionProfile : Profile
 {
     public QuestionProfile()
     {
-        CreateMap<QuestionCreateRequest, Question>();
         CreateMap<Question, QuestionDto>();
     }
 }

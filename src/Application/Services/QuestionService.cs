@@ -18,30 +18,40 @@ public class QuestionService : IQuestionService
     private readonly IMailService _mailService;
     private readonly IStudentRepository _studentRepository;
     private readonly IRepositoryBase<Professor> _professorRepository;
+    private readonly IUserRepository _userRepository;
+    private readonly IRepositoryBase<Subject> _subjectRepository;
 
 
     public QuestionService(IMapper mapper,
         IQuestionRepository questionRepository,
         IMailService mailService,
         IStudentRepository studentRepository,
-        IRepositoryBase<Professor> professorRepository)
+        IRepositoryBase<Professor> professorRepository,
+        IUserRepository userRepository,
+        IRepositoryBase<Subject> subjectRepository)
     {
         _mapper = mapper;
         _questionRepository = questionRepository;
         _mailService = mailService;
         _studentRepository = studentRepository;
         _professorRepository = professorRepository;
+        _userRepository = userRepository;
+        _subjectRepository = subjectRepository;
     }
 
-    public QuestionDto CreateQuestion(QuestionCreateRequest newQuestionDto, int userId)
+    public QuestionDto CreateQuestion(QuestionCreateRequest questionCreateRequest, int userId)
     {
-        var newQuestion = _mapper.Map<Question>(newQuestionDto);
-
-        newQuestion.CreatorStudentId = userId;
-
         var student = _studentRepository.GetByIdAsync(userId).Result ?? throw new NotFoundException(typeof(Student).ToString(), userId);
-        var professor = _professorRepository.GetByIdAsync(newQuestionDto.ProfessorId).Result ?? throw new NotFoundException(typeof(Professor).ToString(), newQuestionDto.ProfessorId);
+        var professor = _professorRepository.GetByIdAsync(questionCreateRequest.ProfessorId).Result 
+            ?? throw new NotFoundException(typeof(Professor).ToString(), questionCreateRequest.ProfessorId);
+        var subject = _subjectRepository.GetByIdAsync(questionCreateRequest.SubjectId).Result
+            ?? throw new NotFoundException(typeof(Subject).ToString(), questionCreateRequest.SubjectId);
 
+        var newQuestion = new Question(student,subject,professor);
+        
+        newQuestion.Title = questionCreateRequest.Title;
+        newQuestion.Description = questionCreateRequest.Description;
+  
         _ = _questionRepository.AddAsync(newQuestion).Result;
         if (_questionRepository.SaveChangesAsync().Result > 0)
             _mailService.Send("Se creó una nueva consulta",
@@ -56,6 +66,13 @@ public class QuestionService : IQuestionService
         var question = _questionRepository.GetByIdAsync(questionId).Result;
 
         return _mapper.Map<QuestionDto?>(question);
+    }
+
+    public ResponseDto GetResponse(int questionId, int responseId)
+    {
+        var response = _questionRepository.GetResponseByQuestionIdAndResponseId(questionId, responseId).Result;
+
+        return _mapper.Map<ResponseDto>(response);
     }
 
     public bool IsQuestionIdValid(int questionId)
@@ -83,6 +100,24 @@ public class QuestionService : IQuestionService
         _mailService.Send("Se modificó el estado de una consulta",
             $"La siguiente pregunta '{question.Title}' pasó a estado: {question.QuestionState.ToString()}",
             question.AssignedProfessor.Email);
+    }
+
+    public ResponseDto CreateResponse(ResponseCreateRequest responseCreateRequest, int questionId, int creatorUserId)
+    {
+        
+        Question? question = _questionRepository.GetByIdAsync(questionId).Result
+            ?? throw (new Exception("Question not found"));
+
+        var responseCreator = _userRepository.GetByIdAsync(creatorUserId).Result
+            ?? throw new NotFoundException("Response creator not found");
+
+        Response response = new Response(question,responseCreator, responseCreateRequest.Message);
+
+        question.AddResponse(response);
+
+        _ = _questionRepository.SaveChangesAsync().Result;
+
+        return _mapper.Map<ResponseDto>(response);
     }
 
 }

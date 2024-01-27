@@ -28,12 +28,25 @@ public class QuestionRepository : EfRepository<Question>, IQuestionRepository
     public IOrderedQueryable<Question> GetPendingQuestions(int userId, bool withResponses)
     {
         if (withResponses)
+        {
             return _context.Questions
                 .Include(q => q.Responses).ThenInclude(r => r.Creator)
-                .Where(q => q.ProfessorId == userId && q.QuestionState == QuestionState.WaitingProfessorAnwser)
+                .Where(q => q.AssignedProfessor.Id == userId && q.QuestionState == QuestionState.WaitingProfessorAnwser)
                 .OrderBy(q => q.LastModificationDate);
+        }
+        else
+        { 
         return _context.Questions
-            .Where(q => q.ProfessorId == userId && q.QuestionState == QuestionState.WaitingProfessorAnwser)
+            .Where(q => q.AssignedProfessor.Id == userId && q.QuestionState == QuestionState.WaitingProfessorAnwser)
             .OrderBy(q => q.LastModificationDate);
+        }
+    }
+
+    public Task<Response?> GetResponseByQuestionIdAndResponseId(int questionId, int responseId, CancellationToken cancellationToken = default)
+    {
+        return _context.Responses
+            .Include(q => q.Creator)
+            .Where(q => q.Question.Id == questionId && q.Id == responseId)
+            .SingleOrDefaultAsync();
     }
 }

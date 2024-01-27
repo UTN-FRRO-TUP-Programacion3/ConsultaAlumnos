@@ -14,12 +14,6 @@ namespace ConsultaAlumnos.Domain.Entities
         [Column(TypeName = "nvarchar(4000)")]
         public string Description { get; set; } = string.Empty;
 
-        public int ProfessorId { get; set; }
-
-        public int CreatorStudentId { get; set; }
-
-        public int SubjectId { get; set; }
-
         [Column(TypeName = "datetime")]
         public DateTime CreationDate { get; private set; } = DateTime.Now;
 
@@ -33,14 +27,24 @@ namespace ConsultaAlumnos.Domain.Entities
 
         public QuestionState QuestionState { get; private set; } = QuestionState.WaitingProfessorAnwser;
 
-        [ForeignKey("ProfessorId")]
-        public Professor AssignedProfessor { get; set; }
+        //[ForeignKey("ProfessorId")]
+        public Professor AssignedProfessor { get; private set; }
 
-        [ForeignKey("CreatorStudentId")]
-        public Student Student { get; set; }
+        public Student Student { get; private set; }
 
-        [ForeignKey("SubjectId")]
-        public Subject Subject { get; set; }
+        public Subject Subject { get; private set; }
+
+        public Question()
+        {
+            
+        }
+
+        public Question(Student studentCreator, Subject subject, Professor professor)
+        {
+            Student = studentCreator;
+            Subject = subject;
+            AssignedProfessor = professor;
+        }
 
         public void AddResponse(Response response)
         {

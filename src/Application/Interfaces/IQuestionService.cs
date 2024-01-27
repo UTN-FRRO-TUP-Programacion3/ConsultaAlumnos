@@ -11,4 +11,6 @@ public interface IQuestionService
     bool IsQuestionIdValid(int questionId);
     void ChangeQuestionStatus(int questionId, QuestionState status, int userId);
 
+    ResponseDto CreateResponse(ResponseCreateRequest newResponse, int questionId, int userId);
+
 }

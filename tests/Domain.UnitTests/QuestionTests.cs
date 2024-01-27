@@ -10,14 +10,11 @@ namespace Domain.UnitTests
         public void AddProfessorResponseWhenWaitingForStudentResponse()
         {
             //Arrange
-            Question question = new Question();
-            question.Student = new Student() { Id = 1 };
-            //question.Student.Id = 1;
-            question.AssignedProfessor = new Professor() { Id = 2 };
+            Question question = new Question(new Student() { Id = 1 },new Subject() { Id = 1 }, new Professor() { Id = 2 });
             //question.AssignedProfessor.Id = 2;
             question.ChangeQuestionStatus(QuestionState.WaitingStudentAnwser, 1);
 
-            Response response = new Response(
+            Response response = new Response(question,
                 new Professor() { Id = 2 },
                 "Respuesta del profesor");
 
@@ -30,11 +27,9 @@ namespace Domain.UnitTests
         public void AddStudentResponseWhenWaitingForProfessorResponse()
         {
             //Arrange
-            Question question = new Question();
-            question.Student = new Student() { Id = 1 };
-            question.AssignedProfessor = new Professor() { Id = 2 };
+            Question question = new Question(new Student() { Id = 1 }, new Subject() { Id = 1 }, new Professor() { Id = 2 });
 
-            Response response = new Response(
+            Response response = new Response(question,
                 new Student() { Id = 1 },
                 "Respuesta del alumno");
 
@@ -47,12 +42,10 @@ namespace Domain.UnitTests
         public void AddResponseFromACreatorThatIsNotStudentOrProfessorInTheQuestion()
         {
             //Arrange
-            Question question = new Question();
-            question.Student = new Student() { Id = 1 };
-            question.AssignedProfessor = new Professor() { Id = 2 };
+            Question question = new Question(new Student() { Id = 1 }, new Subject() { Id = 1 }, new Professor() { Id = 2 });
             question.ChangeQuestionStatus(QuestionState.WaitingStudentAnwser, 1);
 
-            Response response = new Response(
+            Response response = new Response(question,
                 new Student() { Id = 3 },
                 "Respuesa de un alumno que no hizo la pregunta");
 
@@ -65,11 +58,9 @@ namespace Domain.UnitTests
         public void AddResponse()
         {
             //Arrange
-            Question question = new Question();
-            question.Student = new Student() { Id = 1 };
-            question.AssignedProfessor = new Professor() { Id = 2 };
+            Question question = new Question(new Student() { Id = 1 }, new Subject() { Id = 1 }, new Professor() { Id = 2 });
 
-            Response response = new Response(
+            Response response = new Response(question,
                 new Professor() { Id = 2 },
                 "Respuesa del profesor");
 
@@ -84,11 +75,9 @@ namespace Domain.UnitTests
         public void AddResponseWithEmptyMessage()
         {
             //Arrange
-            Question question = new Question();
-            question.Student = new Student() { Id = 1 };
-            question.AssignedProfessor = new Professor() { Id = 2 };
+            Question question = new Question(new Student() { Id = 1 }, new Subject() { Id = 1 }, new Professor() { Id = 2 });
 
-            Response response = new Response(
+            Response response = new Response(question,
                 new Professor() { Id = 2 },
                 "");
 

@@ -79,6 +79,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IRepositoryBase<Response>, EfRepository<Response>>();
 builder.Services.AddScoped<IRepositoryBase<Professor>, EfRepository<Professor>>();
+builder.Services.AddScoped<IRepositoryBase<Subject>, EfRepository<Subject>>();
 #endregion
 
 #region Services

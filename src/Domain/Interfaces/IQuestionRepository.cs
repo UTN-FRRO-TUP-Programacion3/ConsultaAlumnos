@@ -12,4 +12,6 @@ public interface IQuestionRepository : IRepositoryBase<Question>
 
     Task<Question?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
 
+    Task<Response?> GetResponseByQuestionIdAndResponseId(int questionId, int  responseId, CancellationToken cancellationToken = default);
+
 }
