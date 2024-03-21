@@ -1,0 +1,18 @@
+# Reglas de negocio
+- Un alumnno tiene acceso a una o mas materias.
+- Una consulta corresponde a una materia.
+- Un profesor puede dictar una o mas materias.
+- Una materia puede ser dictada por uno o mas profesores.
+- Una consulta está asignada a un profesor.
+- Una consulta puede tener ningúno o muchos alumnos seguidores.
+- Una consulta debe tener un título y una descripción.
+- Una consulta puede tener ningúno o varios archivos adjuntos.
+- Una consulta tiene un estado, que puede ser "Esperando respuesta del profesor", "Esperando respuesta del alumno", "Resuelta", "Cancelada"
+- El profesor puede responder una consulta solo cuando la misma esta en estado "Esperando respuesta del profesor".
+- El alumno puede cambiar el estado de una consulta a "Resuelta" solo cuando la misma está en estado "Esperando respuesta del alumno".
+- El alumno puede cambiar el estado de una consulta a "Cancelada" en cualquier momento.
+- El profesor puede cambiar el estado de una consulta a "Cancelada" en cualquier momento.
+- El sistema puede cambiar el estado de una consulta a "Cancelada" luego de un tiempo de inactividad.
+- Cuando un profesor responde una consulta, la misma pasa a estado "Esperando respuesta del alumno".
+- Cuando un alumno responde una consulta, la misma pasa a estado "Esperando respuesta del profesor".
+- Una respuesta está corresponde a un alumno o a un profesor que la crea.
