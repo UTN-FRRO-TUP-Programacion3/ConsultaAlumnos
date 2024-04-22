@@ -49,5 +49,5 @@ Ejemplo:
     </PropertyGroup>
 ```
 
-Para que los namespaces sean sugeridos según el RootNamespace en lugar de la carpeta donde se encuentra el archivo, y para que el nombre de los assembies
+Para que los namespaces sean sugeridos según el RootNamespace en lugar de la carpeta donde se encuentra el archivo, y para definir el nombre de los assemblies.
 
