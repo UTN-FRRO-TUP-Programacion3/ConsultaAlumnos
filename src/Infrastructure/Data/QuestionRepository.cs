@@ -30,7 +30,11 @@ public class QuestionRepository : EfRepository<Question>, IQuestionRepository
         if (withResponses)
         {
             return _context.Questions
-                .Include(q => q.Responses).ThenInclude(r => r.Creator)
+                .Include(q => q.Responses)
+                .ThenInclude(r => r.Creator)
+                .Include(q => q.AssignedProfessor)
+                .Include(q => q.Student)
+                .Include(q => q.Subject)
                 .Where(q => q.AssignedProfessor.Id == userId && q.QuestionState == QuestionState.WaitingProfessorAnwser)
                 .OrderBy(q => q.LastModificationDate);
         }
