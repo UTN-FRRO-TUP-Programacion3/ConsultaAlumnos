@@ -1,7 +1,9 @@
 ﻿using ConsultaAlumnos.Domain.Entities;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Configuration;
 using System.Reflection.Emit;
 namespace ConsultaAlumnos.Infrastructure.Data;
 
@@ -25,6 +27,24 @@ public class ApplicationDbContext : DbContext
         this.isTestingEnvironment = isTestingEnvironment;
     }
 
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        string connectionString = "Data Source=ConsultaAlumnos.db";
+
+        // Configure the SQLite connection
+        var connection = new SqliteConnection(connectionString);
+        connection.Open();
+
+        // Set journal mode to DELETE using PRAGMA statement
+        using (var command = connection.CreateCommand())
+        {
+            command.CommandText = "PRAGMA journal_mode = DELETE;";
+            command.ExecuteNonQuery();
+        }
+
+        optionsBuilder.UseSqlite(connection);
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
