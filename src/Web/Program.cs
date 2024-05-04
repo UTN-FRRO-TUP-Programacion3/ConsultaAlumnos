@@ -49,8 +49,7 @@ builder.Services.AddSwaggerGen(setupAction =>
 
 
 //builder.Services.AddDbContext<ApplicationDbContext>(dbContextOptions => dbContextOptions.UseSqlServer(
-builder.Services.AddDbContext<ApplicationDbContext>(dbContextOptions => dbContextOptions.UseSqlite(
-builder.Configuration["ConnectionStrings:ConsultaAlumnosDBConnectionString"]));
+builder.Services.AddDbContext<ApplicationDbContext>(dbContextOptions => dbContextOptions.UseSqlite());
 
 
 builder.Services.Configure<AutenticacionServiceOptions>(
