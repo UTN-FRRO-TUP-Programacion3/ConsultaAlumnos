@@ -15,8 +15,6 @@ namespace Application.IntegrationTests
         public void CreateNewQuestion()
         {
             //Arrange
-            var mapper = TestMapperFactory.CreateMapper();
-
             ApplicationDbContext context = TestDbContextFactory.CreateTestApplicationDbContextWithInMemoryDatabase();
 
             var questionRepository = new QuestionRepository(context);
@@ -31,7 +29,7 @@ namespace Application.IntegrationTests
 
             var subjectRepository = new EfRepository<Subject>(context);
 
-            var service = new QuestionService(mapper, questionRepository, mailService, studentRepository, professorRepository,userRepository,subjectRepository);
+            var service = new QuestionService(questionRepository, mailService, studentRepository, professorRepository,userRepository,subjectRepository);
 
             //Act
             QuestionCreateRequest questionCreateRequest = new()
@@ -60,13 +58,11 @@ namespace Application.IntegrationTests
         public void getQuestionById_ReturnsQuestionGivenAValidId()
         {
             //Arrange
-            var mapper = TestMapperFactory.CreateMapper();
-
             ApplicationDbContext context = TestDbContextFactory.CreateTestApplicationDbContextWithInMemoryDatabase();
 
             QuestionRepository questionRepository = new(context);
 
-            var service = new QuestionService(mapper, questionRepository,null, null, null, null, null);
+            var service = new QuestionService(questionRepository,null, null, null, null, null);
 
             //Act
             var result = service.GetQuestion(1);
@@ -81,14 +77,12 @@ namespace Application.IntegrationTests
         public void CreateResponseAndReturnItFromDatabase()
         {
             //Arrange
-            var mapper = TestMapperFactory.CreateMapper();
-
             ApplicationDbContext context = TestDbContextFactory.CreateTestApplicationDbContextWithInMemoryDatabase();
 
             QuestionRepository questionRepository = new(context);
             var userRepository = new UserRepository(context);
 
-            var service = new QuestionService(mapper, questionRepository, null, null, null, userRepository, null);
+            var service = new QuestionService(questionRepository, null, null, null, userRepository, null);
 
             ResponseCreateRequest responseCreateRequest = new ResponseCreateRequest()
             {

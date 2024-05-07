@@ -25,25 +25,31 @@ public class QuestionRepository : EfRepository<Question>, IQuestionRepository
         return _context.Questions.Any(q => q.Id == questionId);
     }
 
-    public IOrderedQueryable<Question> GetPendingQuestions(int userId, bool withResponses)
+    public List<Question> GetPendingQuestions(int userId, bool withResponses)
     {
+
+        IQueryable<Question> query;
+
         if (withResponses)
         {
-            return _context.Questions
-                .Include(q => q.Responses)
+            query = _context.Questions
+            .Include(q => q.AssignedProfessor)
+            .Include(q => q.Student)
+            .Include(q => q.Subject)
+            .Include(q => q.Responses)
                 .ThenInclude(r => r.Creator)
-                .Include(q => q.AssignedProfessor)
-                .Include(q => q.Student)
-                .Include(q => q.Subject)
-                .Where(q => q.AssignedProfessor.Id == userId && q.QuestionState == QuestionState.WaitingProfessorAnwser)
-                .OrderBy(q => q.LastModificationDate);
+            .Where(q => q.AssignedProfessor.Id == userId && q.QuestionState == QuestionState.WaitingProfessorAnwser);
         }
         else
-        { 
-        return _context.Questions
-            .Where(q => q.AssignedProfessor.Id == userId && q.QuestionState == QuestionState.WaitingProfessorAnwser)
-            .OrderBy(q => q.LastModificationDate);
+        {
+            query = _context.Questions
+            .Include(q => q.AssignedProfessor)
+            .Include(q => q.Student)
+            .Include(q => q.Subject)
+            .Where(q => q.AssignedProfessor.Id == userId && q.QuestionState == QuestionState.WaitingProfessorAnwser);
         }
+
+        return query.ToList();
     }
 
     public Task<Response?> GetResponseByQuestionIdAndResponseId(int questionId, int responseId, CancellationToken cancellationToken = default)

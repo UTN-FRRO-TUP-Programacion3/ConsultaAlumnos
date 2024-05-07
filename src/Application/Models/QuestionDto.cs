@@ -35,6 +35,11 @@ public class QuestionDto
         dto.Student = StudentDto.Create(question.Student);
         dto.Subject = SubjectDto.Create(question.Subject);
 
+        foreach(Response r in question.Responses)
+        {
+            dto.Responses.Add(ResponseDto.Create(r));
+        }
+
         return dto;
     }
 

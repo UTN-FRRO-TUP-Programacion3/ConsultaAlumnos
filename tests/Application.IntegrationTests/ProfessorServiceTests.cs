@@ -15,13 +15,12 @@ namespace Application.IntegrationTests
         public void GetPendingQuestionsWithOutResponses()
         {
             //Arrange
-            var mapper = TestMapperFactory.CreateMapper();
 
             ApplicationDbContext context = TestDbContextFactory.CreateTestApplicationDbContextWithInMemoryDatabase();
 
             var questionRepository = new QuestionRepository(context);
 
-            var service = new ProfessorService(mapper,questionRepository);
+            var service = new ProfessorService(questionRepository);
 
             //Act
             var result = service.GetPendingQuestions(5,false);
@@ -39,13 +38,11 @@ namespace Application.IntegrationTests
         public void GetPendingQuestionsWithResponses()
         {
             //Arrange
-            var mapper = TestMapperFactory.CreateMapper();
-
             ApplicationDbContext context = TestDbContextFactory.CreateTestApplicationDbContextWithInMemoryDatabase();
 
             var questionRepository = new QuestionRepository(context);
 
-            var service = new ProfessorService(mapper, questionRepository);
+            var service = new ProfessorService(questionRepository);
 
             //Act
             var result = service.GetPendingQuestions(5, true);
