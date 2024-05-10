@@ -2,6 +2,7 @@
 using ConsultaAlumnos.Infrastructure.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -54,24 +55,24 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
             {
                 // Configure test dependencies here
 
-                //// Remove the app's ApplicationDbContext registration.
-                //var descriptor = services.SingleOrDefault(
-                //d => d.ServiceType ==
-                //    typeof(DbContextOptions<AppDbContext>));
+                // Remove the app's ApplicationDbContext registration.
+                var descriptor = services.SingleOrDefault(
+                d => d.ServiceType ==
+                    typeof(DbContextOptions<ApplicationDbContext>));
 
-                //if (descriptor != null)
-                //{
-                //  services.Remove(descriptor);
-                //}
+                if (descriptor != null)
+                {
+                    services.Remove(descriptor);
+                }
 
-                //// This should be set for each individual test run
-                //string inMemoryCollectionName = Guid.NewGuid().ToString();
+                // This should be set for each individual test run
+                string inMemoryCollectionName = Guid.NewGuid().ToString();
 
-                //// Add ApplicationDbContext using an in-memory database for testing.
-                //services.AddDbContext<AppDbContext>(options =>
-                //{
-                //  options.UseInMemoryDatabase(inMemoryCollectionName);
-                //});
+                // Add ApplicationDbContext using an in-memory database for testing.
+                services.AddDbContext<ApplicationDbContext>(options =>
+                {
+                    options.UseInMemoryDatabase(inMemoryCollectionName);
+                });
             });
     }
 
