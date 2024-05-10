@@ -17,6 +17,7 @@ public class QuestionRepository : EfRepository<Question>, IQuestionRepository
         return await _context.Questions
             .Include(q => q.AssignedProfessor)
             .Include(q => q.Student)
+            .Include(q => q.Subject)
             .SingleOrDefaultAsync(c => c.Id == id, cancellationToken);
     }
 
@@ -52,11 +53,15 @@ public class QuestionRepository : EfRepository<Question>, IQuestionRepository
         return query.ToList();
     }
 
-    public Task<Response?> GetResponseByQuestionIdAndResponseId(int questionId, int responseId, CancellationToken cancellationToken = default)
+    public async Task<Response?> GetResponseByQuestionIdAndResponseId(int questionId, int responseId, CancellationToken cancellationToken = default)
     {
-        return _context.Responses
+
+        var result =  await _context.Responses
             .Include(q => q.Creator)
             .Where(q => q.Question.Id == questionId && q.Id == responseId)
             .SingleOrDefaultAsync();
+
+        return result;
+            
     }
 }

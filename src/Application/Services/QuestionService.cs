@@ -59,9 +59,10 @@ public class QuestionService : IQuestionService
         return QuestionDto.Create(newQuestion);
     }
 
-    public QuestionDto? GetQuestion(int questionId)
+    public QuestionDto GetQuestion(int questionId)
     {
-        var question = _questionRepository.GetByIdAsync(questionId).Result;
+        var question = _questionRepository.GetByIdAsync(questionId).Result
+            ?? throw new NotFoundException($"Question {questionId} not found");
 
         return QuestionDto.Create(question);
       
@@ -69,7 +70,8 @@ public class QuestionService : IQuestionService
 
     public ResponseDto GetResponse(int questionId, int responseId)
     {
-        var response = _questionRepository.GetResponseByQuestionIdAndResponseId(questionId, responseId).Result;
+        var response = _questionRepository.GetResponseByQuestionIdAndResponseId(questionId, responseId).Result
+            ?? throw new NotFoundException($"Response {responseId} from question {questionId} not found");
 
         return ResponseDto.Create(response);
        
@@ -114,7 +116,6 @@ public class QuestionService : IQuestionService
         Response response = new Response(question,responseCreator, responseCreateRequest.Message);
 
         question.AddResponse(response);
-
         _ = _questionRepository.SaveChangesAsync().Result;
 
         return ResponseDto.Create(response);

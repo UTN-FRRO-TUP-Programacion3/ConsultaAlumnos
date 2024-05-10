@@ -90,9 +90,9 @@ namespace Application.IntegrationTests
             };
 
             //Act
-            service.CreateResponse(responseCreateRequest,2,5);
+            service.CreateResponse(responseCreateRequest,2,4);
 
-            var result = service.GetResponse(2, 2);
+            var result = service.GetResponse(2,2);
 
             //Assert
             Assert.NotNull(result);
