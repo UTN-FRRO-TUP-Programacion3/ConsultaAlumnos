@@ -7,9 +7,12 @@ namespace Application.IntegrationTests
     {
         public static ApplicationDbContext CreateTestApplicationDbContextWithInMemoryDatabase()
         {
+
+            //Every database must have their own unique name to avoid collision when tests run in parallel
+            var id = Guid.NewGuid().ToString();
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "Test_database").Options;
-            var context = new ApplicationDbContext(options,true);
+                .UseInMemoryDatabase(databaseName: $"ConsultaAlumnosTestint-{id}").Options;
+            var context = new ApplicationDbContext(options, true);
 
             //Seed data with context.OnModelCreating
             context.Database.EnsureDeleted();
@@ -22,10 +25,10 @@ namespace Application.IntegrationTests
         public static ApplicationDbContext CreateTestApplicationDbContextWithSQLiteDatabase()
         {
             //To run test in parallel
-            //var id = Guid.NewGuid().ToString();
-            //string strDatabasePath = $"Data Source = ConsultaAlumnosTestint-{id}.db";
+            var id = Guid.NewGuid().ToString();
+            string strDatabasePath = $"Data Source = ConsultaAlumnosTestint-{id}.db";
 
-            string strDatabasePath = $"Data Source = ConsultaAlumnosTestint.db";
+            //string strDatabasePath = $"Data Source = ConsultaAlumnosTestint.db";
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseSqlite(strDatabasePath).Options;

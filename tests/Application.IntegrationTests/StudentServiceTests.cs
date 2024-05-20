@@ -10,13 +10,11 @@ namespace Application.IntegrationTests
         public void GetStudentById_ReturnsStudentGivenValidId()
         {
             //Arrange
-            var mapper = TestMapperFactory.CreateMapper();
-
             ApplicationDbContext context = TestDbContextFactory.CreateTestApplicationDbContextWithInMemoryDatabase();
 
             var studentRepository = new StudentRepository(context);
 
-            var service = new StudentService(studentRepository, mapper);
+            var service = new StudentService(studentRepository);
 
             //Act
             var result = service.GetStudentById(1);

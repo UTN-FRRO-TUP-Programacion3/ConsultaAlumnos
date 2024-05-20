@@ -4,8 +4,10 @@ using ConsultaAlumnos.Domain.Entities;
 using ConsultaAlumnos.Domain.Interfaces;
 using ConsultaAlumnos.Infrastructure.Data;
 using ConsultaAlumnos.Infrastructure.Services;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
@@ -49,8 +51,21 @@ builder.Services.AddSwaggerGen(setupAction =>
 
 
 //builder.Services.AddDbContext<ApplicationDbContext>(dbContextOptions => dbContextOptions.UseSqlServer(
-builder.Services.AddDbContext<ApplicationDbContext>(dbContextOptions => dbContextOptions.UseSqlite(
-builder.Configuration["ConnectionStrings:ConsultaAlumnosDBConnectionString"]));
+
+string connectionString = builder.Configuration["ConnectionStrings:ConsultaAlumnosDBConnectionString"]!;
+
+// Configure the SQLite connection
+var connection = new SqliteConnection(connectionString);
+connection.Open();
+
+// Set journal mode to DELETE using PRAGMA statement
+using (var command = connection.CreateCommand())
+{
+    command.CommandText = "PRAGMA journal_mode = DELETE;";
+    command.ExecuteNonQuery();
+}
+
+builder.Services.AddDbContext<ApplicationDbContext>(dbContextOptions => dbContextOptions.UseSqlite(connection));
 
 
 builder.Services.Configure<AutenticacionServiceOptions>(
@@ -70,8 +85,6 @@ builder.Services.AddAuthentication("Bearer") //"Bearer" es el tipo de auntentica
         };
     }
 );
-
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 #region Repositories
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();

@@ -1,7 +1,9 @@
 ﻿using ConsultaAlumnos.Domain.Entities;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Configuration;
 using System.Reflection.Emit;
 namespace ConsultaAlumnos.Infrastructure.Data;
 
@@ -138,6 +140,15 @@ public class ApplicationDbContext : DbContext
             result = [
             new Professor
             {
+                LastName = "Bologna",
+                Name = "Nicolas",
+                Email = "nbologna31@gmail.com",
+                UserName = "nbologna_profesor",
+                Password = "123456",
+                Id = 4
+            },
+            new Professor
+            {
                 LastName = "TestingProfessorLastname",
                 Name = "TestingProfessorName",
                 Email = "tprofessor@gmail.com",
@@ -159,15 +170,15 @@ public class ApplicationDbContext : DbContext
                 Password = "123456",
                 Id = 4
             },
-                new Professor
-                {
-                    LastName = "Paez",
-                    Name = "Pablo",
-                    Email = "ppaez@gmail.com",
-                    UserName = "ppaez",
-                    Password = "123456",
-                    Id = 5
-                }];
+            new Professor
+            {
+                LastName = "Paez",
+                Name = "Pablo",
+                Email = "ppaez@gmail.com",
+                UserName = "ppaez",
+                Password = "123456",
+                Id = 5
+            }];
         }
 
         return result;
@@ -279,8 +290,8 @@ public class ApplicationDbContext : DbContext
                     AssignedProfessorId = 5,
                     StudentId = 1,
                     SubjectId = 1
-                },
-                new
+                }
+                ,new
                 {
                     Id = 2,
                     Title = "Question Title 2 for testing",
@@ -289,7 +300,7 @@ public class ApplicationDbContext : DbContext
                     EndDate = DateTime.Now,
                     LastModificationDate = DateTime.Now,
                     QuestionState = Domain.Enums.QuestionState.WaitingProfessorAnwser,
-                    AssignedProfessorId = 5,
+                    AssignedProfessorId = 4,
                     StudentId = 1,
                     SubjectId = 1
                 }

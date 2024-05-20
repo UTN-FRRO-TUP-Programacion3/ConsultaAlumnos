@@ -1,6 +1,5 @@
 ﻿
 
-using AutoMapper;
 using ConsultaAlumnos.Application.Interfaces;
 using ConsultaAlumnos.Application.Models;
 using ConsultaAlumnos.Application.Models.Requests;
@@ -13,7 +12,6 @@ namespace ConsultaAlumnos.Application.Services;
 
 public class QuestionService : IQuestionService
 {
-    private readonly IMapper _mapper;
     private readonly IQuestionRepository _questionRepository;
     private readonly IMailService _mailService;
     private readonly IStudentRepository _studentRepository;
@@ -22,7 +20,7 @@ public class QuestionService : IQuestionService
     private readonly IRepositoryBase<Subject> _subjectRepository;
 
 
-    public QuestionService(IMapper mapper,
+    public QuestionService(
         IQuestionRepository questionRepository,
         IMailService mailService,
         IStudentRepository studentRepository,
@@ -30,7 +28,6 @@ public class QuestionService : IQuestionService
         IUserRepository userRepository,
         IRepositoryBase<Subject> subjectRepository)
     {
-        _mapper = mapper;
         _questionRepository = questionRepository;
         _mailService = mailService;
         _studentRepository = studentRepository;
@@ -58,21 +55,26 @@ public class QuestionService : IQuestionService
                 $"Usted tiene una nueva consulta asignada por parte del alumno: {student.Name} {student.LastName} ",
                 professor.Email);
 
-        return _mapper.Map<QuestionDto>(newQuestion);
+  
+        return QuestionDto.Create(newQuestion);
     }
 
-    public QuestionDto? GetQuestion(int questionId)
+    public QuestionDto GetQuestion(int questionId)
     {
-        var question = _questionRepository.GetByIdAsync(questionId).Result;
+        var question = _questionRepository.GetByIdAsync(questionId).Result
+            ?? throw new NotFoundException($"Question {questionId} not found");
 
-        return _mapper.Map<QuestionDto?>(question);
+        return QuestionDto.Create(question);
+      
     }
 
     public ResponseDto GetResponse(int questionId, int responseId)
     {
-        var response = _questionRepository.GetResponseByQuestionIdAndResponseId(questionId, responseId).Result;
+        var response = _questionRepository.GetResponseByQuestionIdAndResponseId(questionId, responseId).Result
+            ?? throw new NotFoundException($"Response {responseId} from question {questionId} not found");
 
-        return _mapper.Map<ResponseDto>(response);
+        return ResponseDto.Create(response);
+       
     }
 
     public bool IsQuestionIdValid(int questionId)
@@ -114,10 +116,10 @@ public class QuestionService : IQuestionService
         Response response = new Response(question,responseCreator, responseCreateRequest.Message);
 
         question.AddResponse(response);
-
         _ = _questionRepository.SaveChangesAsync().Result;
 
-        return _mapper.Map<ResponseDto>(response);
+        return ResponseDto.Create(response);
+
     }
 
 }

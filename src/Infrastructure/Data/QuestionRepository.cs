@@ -17,6 +17,7 @@ public class QuestionRepository : EfRepository<Question>, IQuestionRepository
         return await _context.Questions
             .Include(q => q.AssignedProfessor)
             .Include(q => q.Student)
+            .Include(q => q.Subject)
             .SingleOrDefaultAsync(c => c.Id == id, cancellationToken);
     }
 
@@ -25,28 +26,42 @@ public class QuestionRepository : EfRepository<Question>, IQuestionRepository
         return _context.Questions.Any(q => q.Id == questionId);
     }
 
-    public IOrderedQueryable<Question> GetPendingQuestions(int userId, bool withResponses)
+    public List<Question> GetPendingQuestions(int userId, bool withResponses)
     {
+
+        IQueryable<Question> query;
+
         if (withResponses)
         {
-            return _context.Questions
-                .Include(q => q.Responses).ThenInclude(r => r.Creator)
-                .Where(q => q.AssignedProfessor.Id == userId && q.QuestionState == QuestionState.WaitingProfessorAnwser)
-                .OrderBy(q => q.LastModificationDate);
+            query = _context.Questions
+            .Include(q => q.AssignedProfessor)
+            .Include(q => q.Student)
+            .Include(q => q.Subject)
+            .Include(q => q.Responses)
+                .ThenInclude(r => r.Creator)
+            .Where(q => q.AssignedProfessor.Id == userId && q.QuestionState == QuestionState.WaitingProfessorAnwser);
         }
         else
-        { 
-        return _context.Questions
-            .Where(q => q.AssignedProfessor.Id == userId && q.QuestionState == QuestionState.WaitingProfessorAnwser)
-            .OrderBy(q => q.LastModificationDate);
+        {
+            query = _context.Questions
+            .Include(q => q.AssignedProfessor)
+            .Include(q => q.Student)
+            .Include(q => q.Subject)
+            .Where(q => q.AssignedProfessor.Id == userId && q.QuestionState == QuestionState.WaitingProfessorAnwser);
         }
+
+        return query.ToList();
     }
 
-    public Task<Response?> GetResponseByQuestionIdAndResponseId(int questionId, int responseId, CancellationToken cancellationToken = default)
+    public async Task<Response?> GetResponseByQuestionIdAndResponseId(int questionId, int responseId, CancellationToken cancellationToken = default)
     {
-        return _context.Responses
+
+        var result =  await _context.Responses
             .Include(q => q.Creator)
             .Where(q => q.Question.Id == questionId && q.Id == responseId)
             .SingleOrDefaultAsync();
+
+        return result;
+            
     }
 }

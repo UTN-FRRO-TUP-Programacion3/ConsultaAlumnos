@@ -31,7 +31,7 @@ public class QuestionController : ControllerBase
         if (question is null)
             return NotFound();
 
-        if (question.CreatorStudentId != userId && question.ProfessorId != userId)
+        if (question.Student.Id != userId && question.AssignedProfessor.Id != userId)
             return Forbid();
 
         return Ok(question);
