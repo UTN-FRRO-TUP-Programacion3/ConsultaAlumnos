@@ -49,7 +49,7 @@ public class QuestionService : IQuestionService
         newQuestion.Title = questionCreateRequest.Title;
         newQuestion.Description = questionCreateRequest.Description;
   
-        _ = _questionRepository.AddAsync(newQuestion).Result;
+        _questionRepository.AddAsync(newQuestion).Wait();
         if (_questionRepository.SaveChangesAsync().Result > 0)
             _mailService.Send("Se creó una nueva consulta",
                 $"Usted tiene una nueva consulta asignada por parte del alumno: {student.Name} {student.LastName} ",
@@ -116,7 +116,7 @@ public class QuestionService : IQuestionService
         Response response = new Response(question,responseCreator, responseCreateRequest.Message);
 
         question.AddResponse(response);
-        _ = _questionRepository.SaveChangesAsync().Result;
+        _questionRepository.SaveChangesAsync().Wait();
 
         return ResponseDto.Create(response);
 
