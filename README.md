@@ -51,3 +51,33 @@ Ejemplo:
 
 Para que los namespaces sean sugeridos según el RootNamespace en lugar de la carpeta donde se encuentra el archivo, y para definir el nombre de los assemblies.
 
+# Script para clear la esctructura de la solución
+- En la consola de comandos, dentro de la carpeta ConsultaAlumnos
+```
+git init
+(Crear el archivo README.md)
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin [URL del repositorio]
+git push -u origin main
+dotnet new gitignore
+dotnet new sln -n "ConsultaAlumnos"
+mkdir src
+cd src
+dotnet new webapi -f net8.0 -controllers -n Web
+dotnet new classlib -n "Domain"
+dotnet new classlib -n "Application"
+dotnet new classlib -n "Infrastructure"
+cd ..
+dotnet sln ConsultaAlumnos.sln add src/**/*.csproj
+cd src
+dotnet add Application/Application.csproj reference Domain/Domain.csproj
+dotnet add Infrastructure/Infrastructure.csproj reference Application/Application.csproj
+dotnet add Web/Web.csproj reference Application/Application.csproj
+dotnet add Web/Web.csproj reference Infrastructure/Infrastructure.csproj
+rm -r **/Class1.cs
+cd ..
+mkdir docs
+```
+
