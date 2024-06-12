@@ -25,12 +25,16 @@ Fuente: [Clean Architecture with .NET Core: Getting Started](https://jasontaylor
 # Para crear las Migraciones con dotnet CLI
 - En la consola de comandos, posicionados en la carpeta /src
 ```
-dotnet ef migrations add InitialMigration --context ApplicationDbContext --startup-project Web --project Infrastructure -o Data/Migrations -- --environment development
-dotnet ef database update --context ApplicationDbContext --startup-project Web --project Infrastructure -- --environment development
+dotnet ef migrations add InitialMigration --context ApplicationDbContext --startup-project src/Web --project src/Infrastructure -o Data/Migrations -- --environment development
+dotnet ef database update --context ApplicationDbContext --startup-project src/Web --project src/Infrastructure -- --environment development
 ```
 Para borrar la última migración, deshaciendo los cambios en la base de datos
 ```
 dotnet ef migrations remove -f --startup-project Web --project Infrastructure -- --environment development
+```
+Para actualizar las Entity Framework Core .NET Command-line Tools
+```
+dotnet tool update --global dotnet-ef
 ```
 
 # Configuración del proyecto
