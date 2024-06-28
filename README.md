@@ -56,7 +56,7 @@ Ejemplo:
 Para que los namespaces sean sugeridos según el RootNamespace en lugar de la carpeta donde se encuentra el archivo, y para definir el nombre de los assemblies.
 
 # Script para clear la esctructura de la solución
-- En la consola de comandos, dentro de la carpeta ConsultaAlumnos
+En la consola de comandos, dentro de la carpeta ConsultaAlumnos
 ```
 git init
 (Crear el archivo README.md)
@@ -84,4 +84,41 @@ rm -r **/Class1.cs
 cd ..
 mkdir docs
 ```
+
+# Script para crear los proyectos de testing
+Posicionados en la carpeta tests
+```
+dotnet new xunit -o Domain.UnitTests
+dotnet add Domain.UnitTests/Domain.UnitTests.csproj reference ../src/Domain/Domain.csproj
+dotnet sln ../ConsultaAlumnos.sln add ../tests/Domain.UnitTests/Domain.UnitTests.csproj
+cd Domain.UnitTests
+rm UnitTest1.cs
+```
+
+```
+dotnet new xunit -o Application.IntegrationTests
+dotnet add Application.IntegrationTests/Application.IntegrationTests.csproj reference ../src/Application/Application.csproj
+dotnet add Application.IntegrationTests/Application.IntegrationTests.csproj reference ../src/Infrastructure/Infrastructure.csproj
+dotnet sln ../ConsultaAlumnos.sln add ../tests/Application.IntegrationTests/Application.IntegrationTests.csproj
+cd Application.IntegrationTests
+dotnet add package Moq --version 4.20.70
+rm UnitTest1.cs
+```
+
+```
+dotnet new xunit -o Web.FunctionalTests
+dotnet add Web.FunctionalTests/Web.FunctionalTests.csproj reference ../src/Web/Web.csproj
+dotnet sln ../ConsultaAlumnos.sln add Web.FunctionalTests/Web.FunctionalTests.csproj
+cd Web.FunctionalTests
+dotnet add package Microsoft.AspNetCore.Mvc.Testing --version 8.0.1
+rm UnitTest1.cs
+```
+Se debe agregar en Program.cs
+```
+public partial class Program
+{
+}
+```
+Para poder utilizar WebApplicationFactory
+
 
